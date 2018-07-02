@@ -1,8 +1,8 @@
 <template lang="pug">
   .home
     LeftMenuBar.left(:menuData="menuData")
-    .right-panel
-      .title XX系统于2018-10-12故障，已下发短信提醒.
+    .right-panel(@click="notice = notice + 'sd'")
+      Notice(:text="notice")
       .tool-bar
         .sort 故障系统优先
         CheckBox.check(:size="18")
@@ -19,16 +19,19 @@
 
 <script>
 import CheckBox from 'check-puge'
+import Notice from '@/components/Notice.vue'
 import LeftMenuBar from '@/components/LeftMenuBar.vue'
 
 export default {
   name: 'home',
   components: {
+    Notice,
     CheckBox,
     LeftMenuBar
   },
   data () {
     return {
+      notice: "XX系统于2018-10-12故障，已下发短信提醒。",
       menuData: [
         {to: '/control', icon: '&#xe626;', name: '大屏管理', routerActive: false},
         {to: '/template', icon: '&#xe66a;', name: '模板管理', routerActive: false},
@@ -203,16 +206,6 @@ export default {
       margin: 0 20px;
       cursor: pointer;
     }
-  }
-  .title {
-    height: 89px;
-    margin: 0 40px;
-    margin-top: 20px;
-    line-height: 90px;
-    color: #6c6c6c;
-    font-size: 1.4rem;
-    width: calc(100% - 380px);
-    border-bottom: 1px solid #dddddd;
   }
   .state-panel {
     margin: 0 40px;
