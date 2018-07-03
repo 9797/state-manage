@@ -59,7 +59,7 @@ export default {
     overflow: hidden;
     box-shadow: 7px 0px 10px #edf3ff;
     .open .drop-down {
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
     }
     .item-list {
       width: 100%;
@@ -149,6 +149,7 @@ export default {
     right: 25px;
     top: 24px;
     fill: #686868;
+    transition: all 0.5s;
   }
   @media screen and (max-width: 1920px) {
     .left-bar {
