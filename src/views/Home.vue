@@ -15,9 +15,14 @@
           img.state-item-icon(v-if="item.state === 1", src="../assets/warn.svg")
           img.state-item-icon(v-if="item.state === 2", src="../assets/error.svg")
           .mark(v-if="item.message > 0") {{item.message}}
+    .chart
+      Chart(:opt="chartData", :size="{w: 400, h: 180}")
 </template>
 
 <script>
+import 'echarts/lib/echarts'
+import 'echarts/lib/chart/pie'
+import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
 import Notice from 'notice-puge'
 import LeftMenuBar from '@/components/LeftMenuBar.vue'
@@ -25,6 +30,7 @@ import LeftMenuBar from '@/components/LeftMenuBar.vue'
 export default {
   name: 'home',
   components: {
+    Chart,
     Notice,
     CheckBox,
     LeftMenuBar
@@ -172,7 +178,22 @@ export default {
         {name: '系统名称', state: 0, message: 0},
         {name: '系统名称', state: 0, message: 0},
         {name: '系统名称', state: 0, message: 0}
-      ]
+      ],
+      chartData: {
+        series : [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius : '60%',
+            center: ['50%', '60%'],
+            data: [
+              { value:335, name:'正常服务' },
+              { value:310, name:'错误服务' },
+              { value:234, name:'已经关机' }
+            ]
+          }
+        ]
+      }
     }
   }
 }
@@ -259,5 +280,10 @@ export default {
   }
   .error {
     background-color: #ff7f7f;
+  }
+  .chart {
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 </style>
