@@ -19,7 +19,7 @@
 
 <script>
 import CheckBox from 'check-puge'
-import Notice from '@/components/Notice.vue'
+import Notice from 'notice-puge'
 import LeftMenuBar from '@/components/LeftMenuBar.vue'
 
 export default {

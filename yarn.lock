@@ -4669,6 +4669,10 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
+notice-puge@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/notice-puge/-/notice-puge-1.0.0.tgz#2f8648c078be08dc9e4302415e73db68db6e8f8f"
+
 npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
