@@ -1,11 +1,9 @@
 <template lang="pug">
   .home
-    .right-panel(@click="notice = notice + 'sd'")
-      Notice(:text="notice")
+    .right-panel
       .tool-bar
         .sort 故障系统优先
         CheckBox.check(:size="18")
-        .clear-message 全部标记为已读
       .state-panel
         .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
           .service
@@ -24,17 +22,14 @@ import 'echarts/lib/chart/pie'
 import { Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
-import Notice from 'notice-puge'
 export default {
   name: 'home',
   components: {
     Chart,
-    Notice,
     CheckBox
   },
   data () {
     return {
-      notice: "XX系统于2018-10-12故障，已下发短信提醒。",
       mock: [],
       chartData: {
         series : [
@@ -54,7 +49,7 @@ export default {
     }
   },
   created () {
-    Fun.get(`${Config.serve}get_system_state`).then((res) => {
+    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 1}, (res) => {
       console.log(res)
       if (res.err === 0) {
         this.mock = res.data
@@ -69,10 +64,13 @@ export default {
     height: 100%;
     width: calc(100% - 200px);
     display: flex;
+    background-color: #ebebeb;
   }
   .right-panel {
-    height: 100%;
-    width: calc(~"100% - 200px");
+    margin: 20px;
+    border-radius: 5px;
+    width: calc(100% - 40px);
+    background-color: #cccccc;
     .tool-bar {
       height: 60px;
       margin: 0 70px;
@@ -83,11 +81,6 @@ export default {
     }
     .check {
       margin: 19px;
-    }
-    .clear-message {
-      color: #6db7df;
-      margin: 0 20px;
-      cursor: pointer;
     }
   }
   .state-panel {
