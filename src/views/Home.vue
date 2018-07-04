@@ -11,9 +11,9 @@
         .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}")
           .service
           .name {{item.name}}
-          img.state-item-icon(v-if="item.state === 0", src="../assets/right.svg")
-          img.state-item-icon(v-if="item.state === 1", src="../assets/warn.svg")
-          img.state-item-icon(v-if="item.state === 2", src="../assets/error.svg")
+          img.state-item-icon(v-if="item.state === 0", src="../assets/right.png")
+          img.state-item-icon(v-if="item.state === 1", src="../assets/warn.png")
+          img.state-item-icon(v-if="item.state === 2", src="../assets/error.png")
           .mark(v-if="item.message > 0") {{item.message}}
     .chart
       Chart(:opt="chartData", :size="{w: 400, h: 180}")
@@ -248,7 +248,7 @@ export default {
       background-size: 100px;
       background-position: 25px;
       background-repeat: no-repeat;
-      background-image: url(../assets/computer.svg)
+      background-image: url(../assets/computer.png);
     }
     .name {
       height: 30px;
