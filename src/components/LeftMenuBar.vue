@@ -57,7 +57,7 @@ export default {
   methods: {
     getGroup () {
       let _this = this
-      Fun.post(`${Config.serve}/query_group_list`, {}, (result) => {
+      Fun.post(`${Config.serve}group/query_group_list`, {}, (result) => {
         if (result.err === 0) {
           let data = result.data
           for (let key in data) {
