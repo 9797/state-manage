@@ -4,7 +4,7 @@
       .logo
       Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :styleList="noticeStyleList")
     .panel
-      LeftMenuBar(class="left", :menuData="menuData")
+      LeftMenuBar.left
       router-view
 </template>
 
