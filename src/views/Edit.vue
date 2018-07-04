@@ -5,7 +5,13 @@
         .title 全部系统
         .return 返回
       .card-box
-        .card(v-for="item in 20") 系统名称
+        .card(v-for="item in 20")
+          span 系统名称
+          .tool.reduce -
+          // .tool.add +
+    .menu-systems
+      .title-bar
+        .title 该菜单下的系统
 </template>
 
 <script>
@@ -34,7 +40,14 @@
     background-color: white;
     margin: 20px;
     padding: 20px;
-    height: 500px;
+    height: 600px;
+  }
+  .menu-systems {
+    border-radius: 5px;
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    height: calc(~"100% - 740px");
   }
   .card-box {
     .card {
@@ -45,9 +58,22 @@
       line-height: 40px;
       padding: 0 10px;
       border-radius: 20px;
-      background-color: #9DBAFC;
+      position: relative;
+      background-color: #3FBAFB;
       font-size: 16px;
       color: #FFFFFF;
+    }
+    .tool {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      background: #28AEF5;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 14px;
     }
   }
 </style>

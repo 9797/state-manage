@@ -1,11 +1,6 @@
 <template lang="pug">
   .home
-<<<<<<< HEAD
     .right-panel(@click="notice = notice + 'sd'")
-=======
-    LeftMenuBar.left
-    .right-panel(@click.self="notice = notice + 'sd'")
->>>>>>> b1009ea4e5d0475a413f2503f5adf18b6137d635
       Notice(:text="notice")
       .tool-bar
         .sort 故障系统优先
