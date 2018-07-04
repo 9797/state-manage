@@ -22,7 +22,15 @@
     "fontSize": 14
   },
   "tooltip": {
-    "show": true
+    "show": true,
+    "trigger": "axis",
+    "axisPointer": {
+      "lineStyle": {
+        "width": 5,
+        "color": "#589ec3"
+      }
+    },
+    "formatter": "时间: {b0}<br />时长: {c0}"
   },
   "toolbox": {
     "show": true,
@@ -31,15 +39,17 @@
     "itemSize": 30,
     "itemGap": 15,
     "feature": {
-      "myTool1": {
+      "magicType": {
         "show": true,
-        "title": "柱状图",
-        "icon": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTcwOC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTcwOC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPGcgaWQ9Ikdyb3VwLTMiPgoJCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTEuMSwzMEMwLjUsMzAsMCwyOS41LDAsMjguOVYxLjFDMCwwLjUsMC41LDAsMS4xLDBoMjcuOUMyOS41LDAsMzAsMC41LDMwLDEuMXYyNy45CgkJCQkJYzAsMC42LTAuNSwxLjEtMS4xLDEuMUgxLjF6Ii8+CgkJCQk8ZyBpZD0iR3JvdXAtNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDguMDAwMDAwKSI+CgkJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNCIgY2xhc3M9InN0MSIgcG9pbnRzPSIwLDE0LjggMTMsMTQuOCAxMywxMy4zIDAsMTMuMyAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTYiIGNsYXNzPSJzdDEiIHBvaW50cz0iMCwxMS41IDMsMTEuNSAzLDAuNSAwLDAuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTciIGNsYXNzPSJzdDEiIHBvaW50cz0iNSwxMS41IDgsMTEuNSA4LDQuNSA1LDQuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTgiIGNsYXNzPSJzdDEiIHBvaW50cz0iMTAsMTEuNSAxMywxMS41IDEzLDcuNSAxMCw3LjUgCQkJCQkiLz4KCQkJCTwvZz4KCQkJPC9nPgoJCTwvZz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
-      },
-      "myTool2": {
-        "show": true,
-        "title": "折线图",
-        "icon": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTc0MC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTc0MC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTI4LjksMzBIMS4xQzAuNSwzMCwwLDI5LjUsMCwyOC45VjEuMUMwLDAuNSwwLjUsMCwxLjEsMGgyNy45QzI5LjUsMCwzMCwwLjUsMzAsMS4xdjI3LjkKCQkJCUMzMCwyOS41LDI5LjUsMzAsMjguOSwzMCIvPgoJCQk8ZyBpZD0iR3JvdXAtNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDcuMDAwMDAwKSI+CgkJCQk8cG9seWdvbiBpZD0iRmlsbC00IiBjbGFzcz0ic3QxIiBwb2ludHM9IjAsMTUgMTMsMTUgMTMsMTMuNSAwLDEzLjUgCQkJCSIvPgoJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNiIgY2xhc3M9InN0MSIgcG9pbnRzPSI3LjEsMTEuOSA0LjEsNC43IDIuNSw4LjUgMCw4LjUgMCw3IDEuNSw3IDQsMC44IDYuOSw3LjcgNy41LDYgMTMsNiAxMyw3LjUgOC42LDcuNSAKCQkJCQkJCQkJIi8+CgkJCTwvZz4KCQk8L2c+Cgk8L2c+CjwvZz4KPC9zdmc+Cg=="
+        "type": ["line", "bar"],
+        "icon": {
+          "line": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTc0MC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTc0MC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTI4LjksMzBIMS4xQzAuNSwzMCwwLDI5LjUsMCwyOC45VjEuMUMwLDAuNSwwLjUsMCwxLjEsMGgyNy45QzI5LjUsMCwzMCwwLjUsMzAsMS4xdjI3LjkKCQkJCUMzMCwyOS41LDI5LjUsMzAsMjguOSwzMCIvPgoJCQk8ZyBpZD0iR3JvdXAtNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDcuMDAwMDAwKSI+CgkJCQk8cG9seWdvbiBpZD0iRmlsbC00IiBjbGFzcz0ic3QxIiBwb2ludHM9IjAsMTUgMTMsMTUgMTMsMTMuNSAwLDEzLjUgCQkJCSIvPgoJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNiIgY2xhc3M9InN0MSIgcG9pbnRzPSI3LjEsMTEuOSA0LjEsNC43IDIuNSw4LjUgMCw4LjUgMCw3IDEuNSw3IDQsMC44IDYuOSw3LjcgNy41LDYgMTMsNiAxMyw3LjUgOC42LDcuNSAKCQkJCQkJCQkJIi8+CgkJCTwvZz4KCQk8L2c+Cgk8L2c+CjwvZz4KPC9zdmc+Cg==",
+          "bar": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTcwOC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTcwOC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPGcgaWQ9Ikdyb3VwLTMiPgoJCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTEuMSwzMEMwLjUsMzAsMCwyOS41LDAsMjguOVYxLjFDMCwwLjUsMC41LDAsMS4xLDBoMjcuOUMyOS41LDAsMzAsMC41LDMwLDEuMXYyNy45CgkJCQkJYzAsMC42LTAuNSwxLjEtMS4xLDEuMUgxLjF6Ii8+CgkJCQk8ZyBpZD0iR3JvdXAtNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDguMDAwMDAwKSI+CgkJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNCIgY2xhc3M9InN0MSIgcG9pbnRzPSIwLDE0LjggMTMsMTQuOCAxMywxMy4zIDAsMTMuMyAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTYiIGNsYXNzPSJzdDEiIHBvaW50cz0iMCwxMS41IDMsMTEuNSAzLDAuNSAwLDAuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTciIGNsYXNzPSJzdDEiIHBvaW50cz0iNSwxMS41IDgsMTEuNSA4LDQuNSA1LDQuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTgiIGNsYXNzPSJzdDEiIHBvaW50cz0iMTAsMTEuNSAxMywxMS41IDEzLDcuNSAxMCw3LjUgCQkJCQkiLz4KCQkJCTwvZz4KCQkJPC9nPgoJCTwvZz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
+        },
+        "title": {
+          "line": "折线图",
+          "bar": "柱状图"
+        }
       }
     }
   },
@@ -107,7 +117,25 @@
   }],
   "series": [{
     "type": "bar",
-    "areaStyle": {},
+    "areaStyle": {
+      "normal": {
+        "color": {
+          "type": "linear",
+          "x": 0,
+          "y": 0,
+          "x2": 0,
+          "y2": 1,
+          "colorStops": [{
+            "offset": 0,
+            "color": "#7398ff"
+          }, {
+            "offset": 1,
+            "color": "#c0d1ff"
+          }]
+        }
+      }
+    },
+    "barGap": 0,
     "barWidth": "20%",
     "itemStyle": {
       "normal": {
