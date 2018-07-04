@@ -1,0 +1,148 @@
+{
+  "grid": {
+    "show": true,
+    "left": 50,
+    "top": 80,
+    "right": 120,
+    "bottom": 50
+  },
+  "title": {
+    "show": false,
+    "text": "2018/07/20  02:20 \n\n时长： 250ms",
+    "textStyle": {
+      "color": "#999",
+      "fontSize": 14,
+      "lineHeight": 40,
+      "fontWeight": "normal"
+    },
+    "left": 90,
+    "top": 20
+  },
+  "textStyle": {
+    "fontSize": 14
+  },
+  "tooltip": {
+    "show": true,
+    "trigger": "axis",
+    "axisPointer": {
+      "lineStyle": {
+        "width": 5,
+        "color": "#589ec3"
+      }
+    },
+    "formatter": "时间: {b0}<br />时长: {c0}"
+  },
+  "toolbox": {
+    "show": true,
+    "right": 20,
+    "top": 20,
+    "itemSize": 30,
+    "itemGap": 15,
+    "feature": {
+      "magicType": {
+        "show": true,
+        "type": ["line", "bar"],
+        "icon": {
+          "line": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTc0MC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTc0MC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTI4LjksMzBIMS4xQzAuNSwzMCwwLDI5LjUsMCwyOC45VjEuMUMwLDAuNSwwLjUsMCwxLjEsMGgyNy45QzI5LjUsMCwzMCwwLjUsMzAsMS4xdjI3LjkKCQkJCUMzMCwyOS41LDI5LjUsMzAsMjguOSwzMCIvPgoJCQk8ZyBpZD0iR3JvdXAtNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDcuMDAwMDAwKSI+CgkJCQk8cG9seWdvbiBpZD0iRmlsbC00IiBjbGFzcz0ic3QxIiBwb2ludHM9IjAsMTUgMTMsMTUgMTMsMTMuNSAwLDEzLjUgCQkJCSIvPgoJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNiIgY2xhc3M9InN0MSIgcG9pbnRzPSI3LjEsMTEuOSA0LjEsNC43IDIuNSw4LjUgMCw4LjUgMCw3IDEuNSw3IDQsMC44IDYuOSw3LjcgNy41LDYgMTMsNiAxMyw3LjUgOC42LDcuNSAKCQkJCQkJCQkJIi8+CgkJCTwvZz4KCQk8L2c+Cgk8L2c+CjwvZz4KPC9zdmc+Cg==",
+          "bar": "image://data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMzAgMzAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMwIDMwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0Y1RjVGNTt9Cgkuc3Qxe2ZpbGw6IzM2NDk2MDt9Cjwvc3R5bGU+Cjx0aXRsZT5QYWdlIDE8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgaWQ9IuS/ruaUuSI+Cgk8ZyBpZD0i5p+x54q25Zu+IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTcwOC4wMDAwMDAsIC0xNDAuMDAwMDAwKSI+CgkJPGcgaWQ9IlBhZ2UtMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTcwOC4wMDAwMDAsIDE0MC4wMDAwMDApIj4KCQkJPGcgaWQ9Ikdyb3VwLTMiPgoJCQkJPHBhdGggaWQ9IkZpbGwtMSIgY2xhc3M9InN0MCIgZD0iTTEuMSwzMEMwLjUsMzAsMCwyOS41LDAsMjguOVYxLjFDMCwwLjUsMC41LDAsMS4xLDBoMjcuOUMyOS41LDAsMzAsMC41LDMwLDEuMXYyNy45CgkJCQkJYzAsMC42LTAuNSwxLjEtMS4xLDEuMUgxLjF6Ii8+CgkJCQk8ZyBpZD0iR3JvdXAtNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4wMDAwMDAsIDguMDAwMDAwKSI+CgkJCQkJPHBvbHlnb24gaWQ9IkZpbGwtNCIgY2xhc3M9InN0MSIgcG9pbnRzPSIwLDE0LjggMTMsMTQuOCAxMywxMy4zIDAsMTMuMyAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTYiIGNsYXNzPSJzdDEiIHBvaW50cz0iMCwxMS41IDMsMTEuNSAzLDAuNSAwLDAuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTciIGNsYXNzPSJzdDEiIHBvaW50cz0iNSwxMS41IDgsMTEuNSA4LDQuNSA1LDQuNSAJCQkJCSIvPgoJCQkJCTxwb2x5Z29uIGlkPSJGaWxsLTgiIGNsYXNzPSJzdDEiIHBvaW50cz0iMTAsMTEuNSAxMywxMS41IDEzLDcuNSAxMCw3LjUgCQkJCQkiLz4KCQkJCTwvZz4KCQkJPC9nPgoJCTwvZz4KCTwvZz4KPC9nPgo8L3N2Zz4K"
+        },
+        "title": {
+          "line": "折线图",
+          "bar": "柱状图"
+        }
+      }
+    }
+  },
+  "xAxis": {
+    "type": "category",
+    "boundaryGap": true,
+    "axisLabel": {
+      "margin": 20,
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": ["00:20", "00:40", "01:00", "01:20", "01:40", "02:00", "02:20", "02:40", "03:00", "03:20", "03:40", "04:00", "04:20", "04:40"],
+    "name": "时间间隔(min)",
+    "nameTextStyle": {
+      "color": "#999"
+    },
+    "nameGap": 10,
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": true,
+      "lineStyle": {
+        "color": "#999"
+      }
+    },
+    "splitLine": {
+      "show": false
+    }
+  },
+  "yAxis": {
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      },
+      "margin": 15
+    },
+    "name": "时长(s)",
+    "nameTextStyle": {
+      "color": "#999"
+    },
+    "nameGap": 30,
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": true,
+      "lineStyle": {
+        "color": "#999"
+      }
+    },
+    "splitLine": {
+      "show": true
+    }
+  },
+  "dataZoom": [{
+    "show": false,
+    "type": "slider",
+    "xAxisIndex": [0],
+    "startValue": 0,
+    "endValue": 10,
+    "handleSize": "0%",
+    "showDetail": false
+  }],
+  "series": [{
+    "type": "bar",
+    "areaStyle": {
+      "normal": {
+        "color": {
+          "type": "linear",
+          "x": 0,
+          "y": 0,
+          "x2": 0,
+          "y2": 1,
+          "colorStops": [{
+            "offset": 0,
+            "color": "#7398ff"
+          }, {
+            "offset": 1,
+            "color": "#c0d1ff"
+          }]
+        }
+      }
+    },
+    "barGap": 0,
+    "barWidth": "20%",
+    "itemStyle": {
+      "normal": {
+        "color": "#567ef8",
+        "barBorderRadius": [10, 10, 0, 0]
+      }
+    },
+    "data": [12, 12, 11, 4, 3, 4, 6, 7, 3, 21, 24, 25, 26, 9]
+  }]
+}

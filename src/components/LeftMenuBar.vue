@@ -1,166 +1,190 @@
 <template lang="pug">
   //- 左侧二级菜单栏
-  .left-bar
-    .logo
-    .item-list(v-for="item in menuData", :key="item.name", :style="getItemHeight(item)", :class="{'open' : item.showmenu}")
-      .item-wrap(@click="item.showmenu = !item.showmenu")
-        <svg t="1530503401504" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4237" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><path d="M987.392 988.224H36.544c-20.096 0-36.544-14.336-36.544-32.128v-191.872c0-17.6 16.384-32 36.544-32h950.784c20.224 0 36.608 14.272 36.608 32v191.872c0.064 17.792-16.32 32.128-36.544 32.128zM146.304 785.6H60.992v74.624h85.312v-74.624z m499.84 0H560.832v149.248h85.312v-149.248z m158.336 0h-85.248v149.248h85.248v-149.248z m158.528 0h-85.312v149.248h85.312v-149.248zM987.392 654.656H36.544c-20.096 0-36.544-14.4-36.544-32.128V430.592c0-17.6 16.384-32 36.544-32h950.784c20.224 0 36.608 14.336 36.608 32v191.936c0.064 17.728-16.32 32.128-36.544 32.128zM146.304 451.904H60.992v74.688h85.312V451.904z m499.84 0H560.832v149.312h85.312V451.904z m158.336 0h-85.248v149.312h85.248V451.904z m158.528 0h-85.312v149.312h85.312V451.904zM987.392 320H36.544C16.448 320 0 305.664 0 287.936V96c0-17.6 16.384-32 36.544-32h950.784c20.288 0 36.672 14.336 36.672 32v191.936c0 17.728-16.384 32.064-36.608 32.064zM146.304 117.312H60.992V192h85.312V117.312z m499.84 0H560.832v149.312h85.312V117.312z m158.336 0h-85.248v149.312h85.248V117.312z m158.528 0h-85.312v149.312h85.312V117.312z" fill="" p-id="4238"></path></svg>
-        p.name {{item.name}}
-      .children(v-if="item.children && item.children.length > 0")
-        <svg class="drop-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 10"><polygon points="0 5 5 10 5 0 0 5"/></svg>
-        router-link.child(v-for="(child, index) in item.children", :to="child.to", tag="div", :key="child.name")
-          .name {{child.name}}
+  .left-menu-bar
+    //编辑菜单
+    MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false")
+    // 一级
+    .item-box(v-for="(menuLv1, key1, index1) in menuData")
+      .item-wrap.lv1
+        .text(@click="unfold(menuLv1)")
+          .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
+          .icon.unfold(v-else) &#xe643; 
+          p.name {{menuLv1.group_name}}
+        .icon.options(@click="showEdit") &#xe7a8;
+      // 二级
+      .menu-lv2-box(v-show="menuLv1.isunfold")
+        .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
+          .item-wrap.lv2
+            .text(@click="unfold(menuLv2)")
+              .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
+              .icon.unfold(v-else) &#xe643;
+              p.name {{menuLv2.group_name}}
+            .icon.options(@click="showEdit") &#xe7a8;
+          // 三级
+          .menu-lv3-box(v-show="menuLv2.isunfold")
+            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3")
+              .item-wrap.lv3
+                .text(@click="getLv3Detail", :class="{active:menuLv3.isSelect}")
+                  // .icon.unfold &#xe643;
+                  p.name {{menuLv3.group_name}}
+                .icon.options(@click="showEdit(menuLv3)") &#xe7a8;
 </template>
 
 <script>
+import { Fun, Config } from '@/Order.js'
+import MenuEdit from '@/components/MenuEdit'
 export default {
-  props: {
-    menuData: Array
-  },
-  mounted () {
-    for (let index in this.menuData) {
-      let item = this.menuData[index]
-      if (!item.children) continue
-      let children = item.children
-      let _this = this
-      children.forEach(child => {
-        let pathActive = _this.checkPath(child.to)
-        if (pathActive) {
-          item.showmenu = true
-          this.getItemHeight(item)
-        }
-      })
+  data () {
+    return {
+      // 分组的数据
+      menuData: [],
+      showEditFlag: false
     }
   },
+  created () {
+    this.getGroup()
+  },
+  mounted () {
+    
+  },
+  components: {
+    MenuEdit
+  },
   methods: {
-    // 根据子菜单数量计算出菜单高度
-    getItemHeight (menuItem) {
-      if (menuItem.showmenu) {
-        return { height: (menuItem.children.length + 1) * 60 + 'px' }
-      } else {
-        return { height: '60px' }
-      }
+    getGroup () {
+      let _this = this
+      Fun.post(`${Config.serve}/query_group_list`, {}, (result) => {
+        if (result.err === 0) {
+          let data = result.data
+          for (let key in data) {
+            let item1 = data[key]
+            item1['isunfold'] = false
+            for (let key2 in item1.son) {
+              let item2 = item1.son[key2]
+              item2['isunfold'] = false
+              for (let key3 in item2.son) {
+                let item3 = item2.son[key3]
+                item3.isSelect = false
+              }
+            }
+          }
+          _this.menuData = data
+        }
+      })
     },
-    checkPath (to) {
-      let path = this.$route.path
-      let reg = new RegExp(`${to}`, 'g')
-      return reg.test(path)
+    // 展开和隐藏
+    unfold (menu) {
+      menu['isunfold'] = !menu['isunfold']
+    },
+    showEdit ($event) {
+      this.showEditFlag = true
+      let edit = this.$refs.edit.$el
+      let pos = {
+        left: $event.target.offsetLeft - 150,
+        top: $event.target.offsetTop + 10
+      }
+      edit.style.left = pos.left + 'px'
+      edit.style.top = pos.top + 'px'
+    },
+    getLv3Detail (prams) {
+      let data = this.menuData
+      for (let key in data) {
+        let item1 = data[key]
+        for (let key2 in item1.son) {
+          let item2 = item1.son[key2]
+          for (let key3 in item2.son) {
+            let item3 = item2.son[key3]
+            if (item3.group_id === prams.group_id) {
+              item3.isSelect = true
+            }
+          }
+        }
+      }  
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .left-bar {
+  .left-menu-bar {
+    position: relative;
     transition: width 0.5s;
     background-color: white;
     width: 200px;
-    position: relative;
     overflow: hidden;
-    box-shadow: 1px 0px 1px #ccc;
-    .open .drop-down {
-      transform: rotate(-90deg);
-    }
-    .item-list {
+    box-shadow: 7px 0px 10px #edf3ff;
+    .item-box {
       width: 100%;
-      height: 60px;
-      font-size: 1.1em;
+      height: auto;
       overflow: hidden;
-      color: #666;
-      line-height: 60px;
       align-items: center;
       user-select: none;
       cursor: pointer;
-      position: relative;
       text-decoration: none;
-      transition: ALL 0.2s ease-out;
-      letter-spacing: 4px;
-      .router-link-active {
-        border-left: 5px solid #59ADDA;
-        background: rgba(235,235,235,0.50);
-        .icon {
-          color:#59ADDA;
-        }
-      }
-      .children {
+      transition: all 0.2s ease-out;
+      letter-spacing: 0;
+      // 二级分组
+      .menu-lv2 {
         height: auto;
         overflow: hidden;
-        background-color: #f5f9ff;
-      }
-      .child {
-        transition: all .3s;
-        display: flex;
-        align-items: center;
-        width: 150px;
-        height: 60px;
-        padding-left: 50px;
-        &:hover {
-          background: rgba(89, 173, 218, 0.07);
-          border-left: 5px solid #59ADDA;
-          width: 145px;
+        .item-wrap {
+          padding-left: 30px;
           .name {
-            color: #59ADDA;
+            font-size: 16px;
+            color: #666666;
           }
         }
-        .icon {
-          width: 30px;
-          text-align: center;
-          color: #686868;
-          pointer-events: none;
-        }
-        .name {
-          color: #686868;
-          height: 60px;
-          line-height: 60px;
-          pointer-events: none;
+      }
+      // 三级分组
+      .menu-lv3 {
+        .item-wrap {
+          padding-left: 60px;
+          &.active, &:hover {
+            padding-left: 55px;
+            border-left: 5px solid #0CAAFF;
+            box-shadow: 0 5px 10px 0 rgba(34,63,253,0.30);
+            background: #F5F5F5;
+          }
+          .name {
+            font-size: 16px;
+            color: #666666;
+          }
         }
       }
-    }
-  }
-  .item-wrap {
-    display: flex;
-    align-items: center;
-    width: auto;
-    height: 60px;
-    font-size: 1.1em;
-    position: relative;
-    border-left: 5px solid transparent;
-    .icon {
-      width: 60px;
-      height: 20px;
-      fill: #686868;
-      pointer-events: none;
-    }
-    .name {
-      overflow: hidden;
-      color: #686868;
-      pointer-events: none;
-    }
-  }
-  .logo {
-    margin: 0 20px;
-    padding: 20px 0;
-    height: 50px;
-    border-bottom: 1px solid #dddddd;
-  }
-  .drop-down {
-    position: absolute;
-    width: 6px;
-    right: 25px;
-    top: 24px;
-    fill: #686868;
-    transition: all 0.5s;
-  }
-  @media screen and (max-width: 1920px) {
-    .left-bar {
-      width: 160px;
     }
     .item-wrap {
-      .icon {
-        width: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: auto;
+      height: 60px;
+      color: #9B9B9B;
+      padding-left: 15px;
+      padding-right: 20px;
+      .text {
+        width: calc(~"100% - 15px");
+        display: flex;
+        align-items: center;
+      }
+      .unfold {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+        pointer-events: none;
       }
       .name {
-        letter-spacing: normal;
+        overflow: hidden;
+        font-size: 18px;
+        color: #2E2E2E;
+        pointer-events: none;
+        text-overflow:ellipsis;
+        white-space:nowrap
+      }
+      .icon.options {
+        width: 15px;
+        height: 15px;
+        color: #59ADDA;
+        // pointer-events: none;
       }
     }
   }

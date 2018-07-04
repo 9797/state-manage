@@ -88,4 +88,19 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 .left-bar {
   height: 100%;
 }
+@font-face {
+  font-family: 'iconfont';  /* project id 732673 */
+  src: url('//at.alicdn.com/t/font_732673_6ujho44aj77.eot');
+  src: url('//at.alicdn.com/t/font_732673_6ujho44aj77.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_732673_6ujho44aj77.woff') format('woff'),
+  url('//at.alicdn.com/t/font_732673_6ujho44aj77.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_732673_6ujho44aj77.svg#iconfont') format('svg');
+}
+.icon {
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>

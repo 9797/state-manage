@@ -1,13 +1,18 @@
 <template lang="pug">
   .home
+<<<<<<< HEAD
     .right-panel(@click="notice = notice + 'sd'")
+=======
+    LeftMenuBar.left
+    .right-panel(@click.self="notice = notice + 'sd'")
+>>>>>>> b1009ea4e5d0475a413f2503f5adf18b6137d635
       Notice(:text="notice")
       .tool-bar
         .sort 故障系统优先
         CheckBox.check(:size="18")
         .clear-message 全部标记为已读
       .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}")
+        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
           .service
           .name {{item.name}}
           img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")

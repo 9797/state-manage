@@ -87,11 +87,21 @@ const Fun = {
         throw new Error("Unable to copy obj! Its type isn't supported.")
       }
     }
+  },
+  // 数据重置为默认值 
+  resetData ($data, fieldList) {
+    if (!fieldList) return
+    let isObject = Object.prototype.toString.call(fieldList)
+    if (!(isObject === '[object Object]')) return
+    for (let key in fieldList) {
+      let item = fieldList[key]
+      $data[key] = item
+    }
   }
 }
 
 const Config = {
-  serve: 'http://192.168.1.104/index/monitor/'
+  serve: 'http://192.168.1.120/kan/public/index.php?s=index/group'
 }
 
 export { Order, Fun, Config }
