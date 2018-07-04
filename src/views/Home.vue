@@ -5,7 +5,7 @@
         .sort 故障系统优先
         CheckBox.check(:size="18")
       .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
+        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
           .service
           .name {{item.name}}
           img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
@@ -49,7 +49,13 @@ export default {
     }
   },
   created () {
-    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 1}, (res) => {
+    Fun.post(`${Config.serve}monitor/Piechart`, {id: 9}, (res) => {
+      console.log(res)
+      if (res.err === 0) {
+        // this.mock = res.data
+      }
+    })
+    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 9}, (res) => {
       console.log(res)
       if (res.err === 0) {
         this.mock = res.data
@@ -70,7 +76,7 @@ export default {
     margin: 20px;
     border-radius: 5px;
     width: calc(100% - 40px);
-    background-color: #cccccc;
+    background-color: white;
     .tool-bar {
       height: 60px;
       margin: 0 70px;
@@ -139,6 +145,6 @@ export default {
   .chart {
     position: fixed;
     right: 0;
-    top: 0;
+    top: 40px;
   }
 </style>
