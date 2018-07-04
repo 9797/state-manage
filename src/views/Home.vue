@@ -1,6 +1,6 @@
 <template lang="pug">
   .home
-    LeftMenuBar.left(:menuData="menuData")
+    LeftMenuBar.left
     .right-panel(@click.self="notice = notice + 'sd'")
       Notice(:text="notice")
       .tool-bar
@@ -32,46 +32,6 @@ export default {
   data () {
     return {
       notice: "XX系统于2018-10-12故障，已下发短信提醒。",
-      menuData: [
-        {to: '/control', icon: '&#xe626;', name: '大屏管理', routerActive: false},
-        {to: '/template', icon: '&#xe66a;', name: '模板管理', routerActive: false},
-        {
-          to: '/dataBase',
-          icon: '&#xe630;',
-          name: '数据管理',
-          showmenu: false,
-          children: [
-            {
-              to: '/dataBase/file',
-              name: '文件管理'
-            },
-            {
-              to: '/dataBase/data',
-              name: '数据管理'
-            }
-          ]
-        },
-        {
-          to: '/sms',
-          icon: '&#xe64d;',
-          name: '短信管理',
-          showmenu: false,
-          children: [
-            {
-              to: '/sms/template',
-              name: '短信模板'
-            },
-            {
-              to: '/sms/systemList',
-              name: '系统管理'
-            },
-            {
-              to: '/sms/sendRecord',
-              name: '发送记录'
-            }
-          ]
-        }
-      ],
       mock: [
         {name: '系统名称', state: 1, message: 0},
         {name: '系统名称', state: 1, message: 0},
