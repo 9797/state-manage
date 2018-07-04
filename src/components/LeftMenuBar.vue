@@ -57,7 +57,7 @@ export default {
     width: 200px;
     position: relative;
     overflow: hidden;
-    box-shadow: 7px 0px 10px #edf3ff;
+    box-shadow: 1px 0px 1px #ccc;
     .open .drop-down {
       transform: rotate(-90deg);
     }
