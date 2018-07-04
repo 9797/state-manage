@@ -3,16 +3,19 @@
     .mark(@click="hideEdit")
     .edit-box
       .option 重命名该组
-      .option 新建分组
+      .option(@click="addGroup") 新建分组
       .option 删除分组
       .option 添加下级分组
+    .tip-box
 </template>
 <script>
+import { Fun, Config } from '@/Order.js'
 export default {
   methods: {
     hideEdit () {
       this.$emit('hideEdit')
-    }
+    },
+    addGroup () {}
   }
 }
 </script>
