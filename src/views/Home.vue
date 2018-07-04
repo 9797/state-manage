@@ -11,10 +11,10 @@
         .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}")
           .service
           .name {{item.name}}
-          img.state-item-icon(v-if="item.state === 0", src="../assets/right.png")
-          img.state-item-icon(v-if="item.state === 1", src="../assets/warn.png")
-          img.state-item-icon(v-if="item.state === 2", src="../assets/error.png")
-          .mark(v-if="item.message > 0") {{item.message}}
+          img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
+          img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
+          img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
+          // .mark(v-if="item.message > 0") {{item.message}}
     .chart
       Chart(:opt="chartData", :size="{w: 400, h: 180}")
 </template>
@@ -22,6 +22,7 @@
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
+import { Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
 import Notice from 'notice-puge'
@@ -78,107 +79,7 @@ export default {
           ]
         }
       ],
-      mock: [
-        {name: '系统名称', state: 1, message: 0},
-        {name: '系统名称', state: 1, message: 0},
-        {name: '系统名称', state: 2, message: 0},
-        {name: '系统名称', state: 2, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 3},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0},
-        {name: '系统名称', state: 0, message: 0}
-      ],
+      mock: [],
       chartData: {
         series : [
           {
@@ -195,6 +96,14 @@ export default {
         ]
       }
     }
+  },
+  created () {
+    Fun.get(`${Config.serve}get_system_state`).then((res) => {
+      console.log(res)
+      if (res.err === 0) {
+        this.mock = res.data
+      }
+    })
   }
 }
 </script>
