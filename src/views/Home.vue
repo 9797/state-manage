@@ -1,52 +1,48 @@
 <template lang="pug">
   .home
-    Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
     .right-panel
       .tool-bar
         .sort 故障系统优先
         CheckBox.check(:size="18")
       .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
+        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
           .service
           .name {{item.name}}
           img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
           img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
           img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
           // .mark(v-if="item.message > 0") {{item.message}}
-      .chart
-        Chart(:opt="chartData", :size="{w: 260, h: 140}")
+    .chart
+      Chart(:opt="chartData", :size="{w: 400, h: 180}", v-model="chart")
 </template>
 
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
-import { Fun, Config, Order } from '@/Order.js'
+import { Order, Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
-import Tip from '@/components/Tip'
 export default {
   name: 'home',
   components: {
     Chart,
-    CheckBox,
-    Tip
+    CheckBox
   },
   data () {
     return {
       mock: [],
-      showTip: false,
-      tipData: {},
+      chart: null,
       chartData: {
         series : [
           {
             name: '访问来源',
             type: 'pie',
-            radius : '80%',
-            center: ['50%', '50%'],
+            radius : '60%',
+            center: ['50%', '60%'],
             data: [
-              { value:335, name:'正常服务' },
-              { value:310, name:'错误服务' },
-              { value:234, name:'已经关机' }
+              { value:335, name:'正常' },
+              { value:335, name:'故障' },
+              { value:234, name:'错误' }
             ]
           }
         ]
@@ -54,26 +50,37 @@ export default {
     }
   },
   created () {
-    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 1}, (res) => {
-      console.log(res)
-      if (res.err === 0) {
-        this.mock = res.data
-      }
+    Order.$on(`MENU_CLICK`, (id) => {
+      console.log('MENU_CLICK')
+      this.getData(id)
     })
   },
-  mounted () {
-    let _this = this
-    Order.$on('showTip', (res) => {
-      _this.showTip = res.showTip
-      _this.tipData = res
-    })
+  methods: {
+    getData (id) {
+      Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
+        console.log('获取到图表数据:', res)
+        if (res.err === 0) {
+          // this.mock = res.data
+          this.chartData.series[0].data[0].value = res.data.normal
+          this.chartData.series[0].data[1].value = res.data.fault
+          this.chartData.series[0].data[2].value = res.data.error
+          // console.log(this.chartData)
+          this.chart.setOption(this.chartData)
+        }
+      })
+      Fun.post(`${Config.serve}monitor/get_system_state`, {id}, (res) => {
+        console.log('获取到状态数据:', res)
+        if (res.err === 0) {
+          this.mock = res.data
+        }
+      })
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
   .home {
-    position: relative;
     height: 100%;
     width: calc(100% - 200px);
     display: flex;
@@ -82,9 +89,8 @@ export default {
   .right-panel {
     margin: 20px;
     border-radius: 5px;
-    position: relative;
     width: calc(100% - 40px);
-    background-color: #cccccc;
+    background-color: white;
     .tool-bar {
       height: 60px;
       margin: 0 70px;
@@ -98,12 +104,11 @@ export default {
     }
   }
   .state-panel {
-    position: relative;
     margin: 0 40px;
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100% - 200px);
+    height: calc(100% - 90px);
   }
   .state-item {
     height: 150px;
@@ -152,8 +157,8 @@ export default {
     background-color: #ff7f7f;
   }
   .chart {
-    position: absolute;
+    position: fixed;
     right: 0;
-    top: 0;
+    top: 40px;
   }
 </style>

@@ -22,7 +22,7 @@
             .icon.options(@click.prevent.stop.self="showEdit") &#xe7a8;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
-            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3")
+            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", @click="menuClick(menuLv3.group_id)")
               .item-wrap.lv3(:class="{active:menuLv3.isSelect}")
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
@@ -59,6 +59,7 @@ export default {
   methods: {
     // 获取列表
     getGroup () {
+      let getFirst = true
       let _this = this
       Fun.post(`${Config.serve}group/query_group_list`, {}, (result) => {
         if (result.err === 0) {
@@ -143,6 +144,9 @@ export default {
           }
         }
       }  
+    },
+    menuClick (group_id) {
+      Order.$emit('MENU_CLICK', group_id)
     }
   }
 }
@@ -153,7 +157,7 @@ export default {
     position: relative;
     transition: width 0.5s;
     width: 200px;
-    box-shadow: 7px 0px 10px #edf3ff;
+    box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;
     // 分组
     .item-box {
