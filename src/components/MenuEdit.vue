@@ -1,11 +1,11 @@
 <template lang="pug">
   .edit-wrap
     .mark(@click="hideEdit")
-    .edit-box
-      .option(@click="editGroup") 重命名该组
-      .option(@click="addGroup") 新建分组
-      .option(@click="deleteGroup") 删除分组
-      .option(@click="addSubGroup") 添加下级分组
+    .edit-box#edit
+      .option(@click="addGroup", v-if="editMenuData.ops.includes(0)") 新建分组
+      .option(@click="addSubGroup", v-if="editMenuData.ops.includes(1)") 添加下级分组
+      .option(@click="editGroup", v-if="editMenuData.ops.includes(2)") 重命名该组
+      .option(@click="deleteGroup", v-if="editMenuData.ops.includes(3)") 删除分组
     .tip-box
 </template>
 <script>
@@ -78,7 +78,7 @@ export default {
     z-index: 10;
     width: 126px;
     height: auto;
-    padding: 40px 20px 20px;
+    padding: 40px 30px 30px;
     background: url(./../assets/edit-box.png) no-repeat;
     background-size: 100% 100%;
     .option {

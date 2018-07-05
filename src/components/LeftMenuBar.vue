@@ -23,11 +23,11 @@
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
-              .item-wrap.lv3
-                .text
+              .item-wrap.lv3(:class="{active:menuLv3.isSelect}")
+                .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
-                .icon.options(@click.prevent.stop.self="showEdit(menuLv1)") &#xe7a8;
+                .icon.options(@click.prevent.stop.self="showEdit($event,menuLv3, 3)") &#xe7a8;
 </template>
 
 <script>
@@ -54,6 +54,8 @@ export default {
       _this.editMenu(data)
       if (data.type === 'addSub')
       _this.addSubMenu(data)
+      if (data.type === 'del')
+      _this.delMenu(data)
     })
   },
   components: {
@@ -62,7 +64,6 @@ export default {
   methods: {
     // 获取列表
     getGroup () {
-      let getFirst = true
       let _this = this
       Fun.post(`${Config.serve}group/query_group_list`, {}, (result) => {
         if (result.err === 0) {
@@ -128,22 +129,59 @@ export default {
         }
       })
     },
+    // 删除
+    delMenu (data) {
+      let _this = this
+      Fun.post(`${Config.serve}group/delete_group`, {
+        group_id: data.group_id
+      }, (result) => {
+        if (result.err === 0) {
+          _this.getGroup()
+        }
+      })
+    },
     // 展开和隐藏
     unfold (menu) {
       menu['isunfold'] = !menu['isunfold']
     },
     // 显示编辑组件
-    showEdit (e, obj) {
-      console.log('editMenuData', obj)
+    showEdit (e, o, l) {
+      console.log('editMenuData', o)
       this.showEditFlag = true
-      this.editMenuData = obj
-      let edit = this.$refs.edit.$el
+      o.ops = [0, 1, 2, 3]
+      if (l && l === 3) {
+       o.ops = [0, 1, 2]
+      }
+      this.editMenuData = o
+      let editBox = this.$refs.edit.$el
+      if (!editBox) return
       let pos = {
-        left: e.target.offsetLeft - 146,
+        left: e.target.offsetLeft - 166,
         top: e.target.offsetTop + 10
       }
-      edit.style.left = pos.left + 'px'
-      edit.style.top = pos.top + 'px'
+      editBox.style.left = pos.left + 'px'
+      editBox.style.top = pos.top + 'px'
+    },
+    // 显示系统详情
+    getLv3Detail (prams) {
+      let data = this.menuData
+      for (let key in data) {
+        let item1 = data[key]
+        if (!item1) return
+        for (let key2 in item1.son) {
+          let item2 = item1.son[key2]
+          if (!item2) return
+          for (let key3 in item2.son) {
+            let item3 = item2.son[key3]
+            if (!item3) return
+            if (item3.group_id === prams.group_id) {
+              item3.isSelect = true
+            } else {
+              item3.isSelect = false
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -154,7 +192,7 @@ export default {
     position: relative;
     transition: width 0.5s;
     width: 200px;
-    box-shadow: 1px 0px 1px #cccccc;
+    box-shadow: 7px 0px 10px #edf3ff;
     background: #ffffff;
     // 分组
     .item-box {

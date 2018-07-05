@@ -3,8 +3,8 @@
     .tip
       .title
         span.name {{tipData.title}}
-        span.close &times;
-      .text-box(v-if="tipData.type === 'del' ")
+        span.close(@click="$emit('hideTip')") &times;
+      .text-box(v-if="tipData.type !== 'del' ")
         .text
           .name 分组名称：
           input.input(v-model="inputVal")
