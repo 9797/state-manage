@@ -101,7 +101,7 @@ const Fun = {
 }
 
 const Config = {
-  serve: 'http://10.225.47.222/index/'
+  serve: 'http://192.168.1.120/kan/public/index.php?s=index/'
 }
 
 export { Order, Fun, Config }
