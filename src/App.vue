@@ -6,20 +6,35 @@
         .logo-text LOGO
       Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :style="noticeStyleList")
     .panel
-      LeftMenuBar.left
       router-view
 </template>
 
 <script>
 import Notice from 'notice-puge'
-import LeftMenuBar from '@/components/LeftMenuBar.vue'
+import { Order, Fun, Config } from '@/Order.js'
 export default {
   components: {
-    Notice,
-    LeftMenuBar
+    Notice
+  },
+  mounted () {
+    Order.$on('NOTICE', (data) => {
+      console.log('--------------------------')
+      console.log(data)
+      let IDList = []
+      data.forEach(element => {
+        IDList.push(element.id)
+      })
+      Fun.post(`${Config.serve}monitor/get_system_notice`, IDList, (res) => {
+        console.log('获取到通知数据:', res)
+        // if (res.err === 0) {
+        //   this.mock = res.data
+        // }
+      })
+    })
   },
   data () {
     return {
+      noticeMessage: [],
       noticeStyleList: {
         'line-height': '65px',
         'height': '65px',

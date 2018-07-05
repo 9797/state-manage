@@ -4,7 +4,7 @@
       .sort 故障系统优先
       CheckBox.check(:size="18")
     .state-panel
-      .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
+      .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail/' + item.id + '/' + item.reqmethod)")
         .service
         .name {{item.name}}
         img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getData (id) {
-      console.log(this.$route.params.id)
+      // console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
@@ -67,10 +67,13 @@ export default {
           this.chart.setOption(this.chartData)
         }
       })
-      Fun.post(`${Config.serve}monitor/get_system_state`, {id}, (res) => {
+      Fun.post(`${Config.serve}monitor/get_system_state`, {group_id: id}, (res) => {
         console.log('获取到状态数据:', res)
         if (res.err === 0) {
           this.mock = res.data
+          setTimeout(() => {
+            Order.$emit('NOTICE', res.data)
+          }, 0)
         }
       })
     }

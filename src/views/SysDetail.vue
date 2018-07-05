@@ -1,14 +1,13 @@
 <template lang="pug">
   .detail-box
-    .sys-top-title
-      .sys-name 系统名称
-      .sys-back 返回
+    .sys-back(@click="$router.go(-1)") 返回
     .sys-charts-box
       .chart(ref="chart")
       .prev(@click="dataZoom('reduce')")
       .next(@click="dataZoom('add')")
 </template>
 <script>
+import { Fun, Config } from '@/Order.js'
 // 默认柱状图
 import chartOption from '@/assets/chart.json'
 // 引入基本模板
@@ -28,13 +27,12 @@ const step = 5
 export default {
   data () {
     return {
-      chartOption,
       chart: null
     }
   },
   mounted () {
     this.chart = echarts.init(this.$refs.chart)
-    this.chart.setOption(this.chartOption)
+    this.chart.setOption(chartOption)
     let _this = this
     window.addEventListener('resize', () => {
       setTimeout(() => {
@@ -48,6 +46,21 @@ export default {
     //     console.log(params)
     //   }
     // }
+    const params = this.$route.params
+    Fun.post(`${Config.serve}monitor/bargraph`, {id: params.id, reqmethod: params.reqmethod}, (result) => {
+      if (result.err === 0) {
+        let chartCopy = chartOption
+        let xAxis = []
+        let value = []
+        result.data.forEach(element => {
+          xAxis.push(element.now_time)
+          value.push(element.total_time)
+        })
+        chartOption.xAxis.data = xAxis
+        chartOption.series[0].data = value
+        this.chart.setOption(chartOption)
+      }
+    })
   },
   methods: {
     // 数据缩放
@@ -88,19 +101,18 @@ export default {
   .detail-box {
     width: 100%;
     height: 100%;
-    .sys-top-title {
-      height: 64px;
-      padding: 0 40px;
-      font-size: 20px;
-      color: #424751;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #FFFFFF;
-      box-shadow: 0 8px 15px 0 rgba(71,137,255,0.10);
-      .sys-back {
-        cursor: pointer;
-      }
+    background-color: white;
+    .sys-back {
+      top: 0;
+      position: fixed;
+      right: 0;
+      cursor: pointer;
+      height: 65px;
+      line-height: 65px;
+      color: white;
+      width: 108px;
+      text-align: center;
+      font-size: 1.4rem;
     }
     .sys-charts-box {
       position: relative;
