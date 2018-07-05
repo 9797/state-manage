@@ -1,11 +1,12 @@
 <template lang="pug">
   .home
+    Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
     .right-panel
       .tool-bar
         .sort 故障系统优先
         CheckBox.check(:size="18")
       .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
+        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
           .service
           .name {{item.name}}
           img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
@@ -19,18 +20,22 @@
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
-import { Order, Fun, Config } from '@/Order.js'
+import { Fun, Config, Order } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
+import Tip from '@/components/Tip'
 export default {
   name: 'home',
   components: {
     Chart,
-    CheckBox
+    CheckBox,
+    Tip
   },
   data () {
     return {
       mock: [],
+      showTip: false,
+      tipData: {},
       chartData: {
         series : [
           {
@@ -49,32 +54,26 @@ export default {
     }
   },
   created () {
-    Order.$on(`MENU_CLICK`, (id) => {
-      console.log(id)
-      this.getData(id)
+    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 1}, (res) => {
+      console.log(res)
+      if (res.err === 0) {
+        this.mock = res.data
+      }
     })
   },
-  methods: {
-    getData (id) {
-      Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
-        console.log(res)
-        if (res.err === 0) {
-          // this.mock = res.data
-        }
-      })
-      Fun.post(`${Config.serve}monitor/get_system_state`, {id}, (res) => {
-        console.log(res)
-        if (res.err === 0) {
-          this.mock = res.data
-        }
-      })
-    }
+  mounted () {
+    let _this = this
+    Order.$on('showTip', (res) => {
+      _this.showTip = res.showTip
+      _this.tipData = res
+    })
   }
 }
 </script>
 
 <style lang="less" scoped>
   .home {
+    position: relative;
     height: 100%;
     width: calc(100% - 200px);
     display: flex;
@@ -85,7 +84,7 @@ export default {
     border-radius: 5px;
     position: relative;
     width: calc(100% - 40px);
-    background-color: white;
+    background-color: #cccccc;
     .tool-bar {
       height: 60px;
       margin: 0 70px;
