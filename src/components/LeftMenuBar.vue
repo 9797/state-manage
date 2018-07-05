@@ -2,7 +2,7 @@
   //- 左侧二级菜单栏
   .left-menu-bar
     //编辑菜单
-    MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false")
+    MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
     // 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1
@@ -10,7 +10,7 @@
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
-        .icon.options(@click.prevent.stop.self="showEdit") &#xe7a8;
+        .icon.options(@click.prevent.stop.self="showEdit($event,menuLv1)") &#xe7a8;
       // 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
@@ -19,7 +19,7 @@
               .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
-            .icon.options(@click.prevent.stop.self="showEdit") &#xe7a8;
+            .icon.options(@click.prevent.stop.self="showEdit($event,menuLv2)") &#xe7a8;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", @click="menuClick(menuLv3.group_id)")
@@ -27,7 +27,7 @@
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
-                .icon.options(@click.prevent.stop.self="showEdit") &#xe7a8;
+                .icon.options(@click.prevent.stop.self="showEdit(menuLv1)") &#xe7a8;
 </template>
 
 <script>
@@ -38,7 +38,8 @@ export default {
     return {
       // 分组的数据
       menuData: [],
-      showEditFlag: false
+      showEditFlag: false,
+      editMenuData: {}
     }
   },
   created () {
@@ -48,9 +49,11 @@ export default {
     let _this = this
     Order.$on('updataMenu', (data) => {
       if (data.type === 'add')
-      _this.addMenu(data.value)
+      _this.addMenu(data)
       if (data.type === 'edit')
-      _this.editMenu(data.value)
+      _this.editMenu(data)
+      if (data.type === 'addSub')
+      _this.addSubMenu(data)
     })
   },
   components: {
@@ -85,26 +88,41 @@ export default {
               }
             }
           }
-          console.log(data)
           _this.menuData = data
         }
       })
     },
     // 新增菜单
-    addMenu (groupName) {
+    addMenu (data) {
       let _this = this
       Fun.post(`${Config.serve}group/insert_group`, {
-        group_name: groupName
+        group_name: data.value
       }, (result) => {
         if (result.err === 0) {
           _this.getGroup()
         }
       })
     },
-    editMenu () {
+    // 修改菜单
+    editMenu (data) {
       let _this = this
-      Fun.post(`${Config.serve}group/insert_group`, {
-        group_name: groupName
+      Fun.post(`${Config.serve}group/update_group`, {
+        group_id: data.group_id,
+        data : {
+          group_name: data.value
+        }
+      }, (result) => {
+        if (result.err === 0) {
+          _this.getGroup()
+        }
+      })
+    },
+    // 新增下级分组
+    addSubMenu (data) {
+      let _this = this
+      Fun.post(`${Config.serve}group/insert_child_group`, {
+        group_name: data.value,
+        parent_id: data.group_id
       }, (result) => {
         if (result.err === 0) {
           _this.getGroup()
@@ -116,12 +134,14 @@ export default {
       menu['isunfold'] = !menu['isunfold']
     },
     // 显示编辑组件
-    showEdit ($event) {
+    showEdit (e, obj) {
+      console.log('editMenuData', obj)
       this.showEditFlag = true
+      this.editMenuData = obj
       let edit = this.$refs.edit.$el
       let pos = {
-        left: $event.target.offsetLeft - 146,
-        top: $event.target.offsetTop + 10
+        left: e.target.offsetLeft - 146,
+        top: e.target.offsetTop + 10
       }
       edit.style.left = pos.left + 'px'
       edit.style.top = pos.top + 'px'
@@ -131,13 +151,14 @@ export default {
       let data = this.menuData
       for (let key in data) {
         let item1 = data[key]
+        if (!item1) return
         for (let key2 in item1.son) {
           let item2 = item1.son[key2]
+          if (!item2) return
           for (let key3 in item2.son) {
             let item3 = item2.son[key3]
+            if (!item3) return
             if (item3.group_id === prams.group_id) {
-              console.log(item3)
-              console.log(prams)
               item3.isSelect = true
             } else {
               item3.isSelect = false
