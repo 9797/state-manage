@@ -27,7 +27,7 @@
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
-                .icon.options(@click.prevent.stop.self="showEdit(menuLv1)") &#xe7a8;
+                .icon.options(@click.prevent.stop.self="showEdit($event,menuLv3, 3)") &#xe7a8;
 </template>
 
 <script>
@@ -54,6 +54,8 @@ export default {
       _this.editMenu(data)
       if (data.type === 'addSub')
       _this.addSubMenu(data)
+      if (data.type === 'del')
+      _this.delMenu(data)
     })
   },
   components: {
@@ -122,22 +124,38 @@ export default {
         }
       })
     },
+    // 删除
+    delMenu (data) {
+      let _this = this
+      Fun.post(`${Config.serve}group/delete_group`, {
+        group_id: data.group_id
+      }, (result) => {
+        if (result.err === 0) {
+          _this.getGroup()
+        }
+      })
+    },
     // 展开和隐藏
     unfold (menu) {
       menu['isunfold'] = !menu['isunfold']
     },
     // 显示编辑组件
-    showEdit (e, obj) {
-      console.log('editMenuData', obj)
+    showEdit (e, o, l) {
+      console.log('editMenuData', o)
       this.showEditFlag = true
-      this.editMenuData = obj
-      let edit = this.$refs.edit.$el
+      o.ops = [0, 1, 2, 3]
+      if (l && l === 3) {
+       o.ops = [0, 1, 2]
+      }
+      this.editMenuData = o
+      let editBox = this.$refs.edit.$el
+      if (!editBox) return
       let pos = {
-        left: e.target.offsetLeft - 146,
+        left: e.target.offsetLeft - 166,
         top: e.target.offsetTop + 10
       }
-      edit.style.left = pos.left + 'px'
-      edit.style.top = pos.top + 'px'
+      editBox.style.left = pos.left + 'px'
+      editBox.style.top = pos.top + 'px'
     },
     // 显示系统详情
     getLv3Detail (prams) {
