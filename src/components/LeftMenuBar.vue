@@ -10,7 +10,7 @@
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
-        .icon.options(@click="showEdit") &#xe7a8;
+        .icon.options(@click.stop="showEdit") &#xe7a8;
       // 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
@@ -19,19 +19,19 @@
               .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
-            .icon.options(@click="showEdit") &#xe7a8;
+            .icon.options(@click.stop="showEdit") &#xe7a8;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
-            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3")
+            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", @click="menuClick(menuLv3.group_id)")
               .item-wrap.lv3
                 .text(@click="getLv3Detail", :class="{active:menuLv3.isSelect}")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
-                .icon.options(@click="showEdit(menuLv3)") &#xe7a8;
+                .icon.options(@click.stop="showEdit(menuLv3)") &#xe7a8;
 </template>
 
 <script>
-import { Fun, Config } from '@/Order.js'
+import { Order, Fun, Config } from '@/Order.js'
 import MenuEdit from '@/components/MenuEdit'
 export default {
   data () {
@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     getGroup () {
+      let getFirst = true
       let _this = this
       Fun.post(`${Config.serve}group/query_group_list`, {}, (result) => {
         if (result.err === 0) {
@@ -63,6 +64,11 @@ export default {
               let item2 = item1.son[key2]
               item2['isunfold'] = false
               for (let key3 in item2.son) {
+                // 加载第一项分组数据
+                if (getFirst) {
+                  getFirst = false
+                  Order.$emit('MENU_CLICK', key3.group_id)
+                }
                 let item3 = item2.son[key3]
                 item3.isSelect = false
               }
@@ -100,6 +106,9 @@ export default {
           }
         }
       }  
+    },
+    menuClick (group_id) {
+      Order.$emit('MENU_CLICK', group_id)
     }
   }
 }

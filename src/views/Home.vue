@@ -19,7 +19,7 @@
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
-import { Fun, Config } from '@/Order.js'
+import { Order, Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
 export default {
@@ -49,18 +49,26 @@ export default {
     }
   },
   created () {
-    Fun.post(`${Config.serve}monitor/Piechart`, {id: 9}, (res) => {
-      console.log(res)
-      if (res.err === 0) {
-        // this.mock = res.data
-      }
+    Order.$on(`MENU_CLICK`, (id) => {
+      console.log(id)
+      this.getData(id)
     })
-    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 9}, (res) => {
-      console.log(res)
-      if (res.err === 0) {
-        this.mock = res.data
-      }
-    })
+  },
+  methods: {
+    getData (id) {
+      Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
+        console.log(res)
+        if (res.err === 0) {
+          // this.mock = res.data
+        }
+      })
+      Fun.post(`${Config.serve}monitor/get_system_state`, {id}, (res) => {
+        console.log(res)
+        if (res.err === 0) {
+          this.mock = res.data
+        }
+      })
+    }
   }
 }
 </script>
