@@ -1,7 +1,18 @@
 <template lang="pug">
-  .home
-    LeftMenuBar.left
-    router-view.right-panel
+  .right-panel
+    .tool-bar
+      .sort 故障系统优先
+      CheckBox.check(:size="18")
+    .state-panel
+      .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
+        .service
+        .name {{item.name}}
+        img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
+        img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
+        img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
+        // .mark(v-if="item.message > 0") {{item.message}}
+    .chart
+      Chart(:opt="chartData", :size="{w: 300, h: 100}", v-model="chart")
 </template>
 
 <script>
@@ -39,8 +50,12 @@ export default {
       }
     }
   },
+  created () {
+    this.getData(this.$route.params.id)
+  },
   methods: {
     getData (id) {
+      console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
@@ -58,6 +73,11 @@ export default {
           this.mock = res.data
         }
       })
+    }
+  },
+  watch: {
+    '$route.params.id' (value) {
+      this.getData(this.$route.params.id)
     }
   }
 }

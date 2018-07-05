@@ -1,7 +1,7 @@
 <template lang="pug">
   .app
     .title
-      .logo
+      .logo LOGO
       Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :styleList="noticeStyleList")
     .panel
       router-view
@@ -95,6 +95,10 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   background: #364960;
   .logo {
     width: 200px;
+    line-height: 65px;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
   }
 }
 .panel {

@@ -76,7 +76,8 @@ export default {
                 // 加载第一项分组数据
                 if (getFirst) {
                   getFirst = false
-                  Order.$emit('MENU_CLICK', key3)
+                  // Order.$emit('MENU_CLICK', key3)
+                  this.$router.push(`/state/${key3}`)
                 }
                 let item3 = item2.son[key3]
                 if (!item3) continue
@@ -146,7 +147,8 @@ export default {
       }  
     },
     menuClick (group_id) {
-      Order.$emit('MENU_CLICK', group_id)
+      console.log('跳转路由:', `/state/${group_id}`)
+      this.$router.push(`/state/${group_id}`)
     }
   }
 }
