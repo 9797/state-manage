@@ -22,7 +22,7 @@
             .icon.options(@click.prevent.stop.self="showEdit($event,menuLv2)") &#xe7a8;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
-            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3")
+            router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
               .item-wrap.lv3(:class="{active:menuLv3.isSelect}")
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
@@ -77,9 +77,14 @@ export default {
               if (!item2) continue
               item2['isunfold'] = false
               for (let key3 in item2.son) {
+                // 加载第一项分组数据
+                // if (getFirst) {
+                //   let getFirst = false
+                //   // Order.$emit('MENU_CLICK', key3)
+                //   this.$router.push(`/state/${key3}`)
+                // }
                 let item3 = item2.son[key3]
                 if (!item3) continue
-                item3.isSelect = false
               }
             }
           }
@@ -176,7 +181,7 @@ export default {
             }
           }
         }
-      }  
+      }
     }
   }
 }
@@ -212,12 +217,17 @@ export default {
       }
       // 三级分组
       .menu-lv3 {
-        .item-wrap {
-          padding-left: 60px;
-          &.active, &:hover {
+        &.router-link-active, &:hover {
+          .item-wrap {
             padding-left: 55px;
             border-left: 5px solid #0CAAFF;
             background: #F5F5F5;
+          }
+        }
+        .item-wrap {
+          padding-left: 60px;
+          .text {
+            pointer-events: none;
           }
           .name {
             font-size: 16px;
