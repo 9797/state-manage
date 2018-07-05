@@ -4,8 +4,9 @@
     .edit-box#edit(v-if="editMenuData.ops")
       .option(@click="addGroup", v-if="editMenuData.ops.includes(0)") 新建分组
       .option(@click="addSubGroup", v-if="editMenuData.ops.includes(1)") 添加下级分组
-      .option(@click="editGroup", v-if="editMenuData.ops.includes(2)") 重命名该组
+      .option(@click="renameGroup", v-if="editMenuData.ops.includes(2)") 重命名该组
       .option(@click="deleteGroup", v-if="editMenuData.ops.includes(3)") 删除分组
+      .option(@click="editGroup", v-if="editMenuData.ops.includes(4)") 编辑
     .tip-box
 </template>
 <script>
@@ -26,8 +27,8 @@ export default {
       }
       this.showTip(data)
     },
-    // 修改
-    editGroup () {
+    // 重命名
+    renameGroup () {
       this.hideEdit()
       let editObj = Fun.deepClone(this.editMenuData)
       delete editObj.son
@@ -58,6 +59,11 @@ export default {
         title: '添加下级分组'
       }, editObj)
       this.showTip(data)
+    },
+    // 编辑
+    editGroup () {
+      this.hideEdit()
+      this.$router.push(`/edit/${this.editMenuData.group_id}`)
     },
     // 显示提示框
     showTip (data) {

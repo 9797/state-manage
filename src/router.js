@@ -16,19 +16,14 @@ export default new Router({
         {
           path: '/state/:id',
           component: State
+        },
+        {
+          path: '/edit/:id',
+          name: 'edit',
+          component: Edit
         }
       ]
     },
-    {
-      path: '/edit',
-      name: 'edit',
-      component: Edit
-    },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: About
-    // },
     {
       path: '/sysdetail/:id/:reqmethod',
       name: 'SysDetail',

@@ -148,9 +148,14 @@ export default {
     showEdit (e, o, l) {
       console.log('editMenuData', o)
       this.showEditFlag = true
+      // 0 :  新建分组
+      // 1 :  添加下级分组
+      // 2 :  重命名该组
+      // 3 :  删除分组
+      // 4 :  编辑
       o.ops = [0, 1, 2, 3]
       if (l && l === 3) {
-       o.ops = [0, 1, 2]
+       o.ops = [0, 1, 2, 4]
       }
       this.editMenuData = o
       let editBox = this.$refs.edit.$el

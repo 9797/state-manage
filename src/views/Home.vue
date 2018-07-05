@@ -77,10 +77,12 @@ export default {
     background-color: #ebebeb;
   }
   .right-panel {
+    width: calc(~"100% - 240px");
+    height: calc(~"100% - 40px");
+    overflow: auto;
     margin: 20px;
     border-radius: 5px;
     position: relative;
-    width: calc(100% - 240px);
     background-color: white;
     .tool-bar {
       height: 80px;
