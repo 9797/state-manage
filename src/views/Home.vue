@@ -1,5 +1,6 @@
 <template lang="pug">
   .home
+    Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
     .right-panel
       .tool-bar
         .sort 故障系统优先
@@ -19,18 +20,22 @@
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
-import { Fun, Config } from '@/Order.js'
+import { Fun, Config, Order } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
+import Tip from '@/components/Tip'
 export default {
   name: 'home',
   components: {
     Chart,
-    CheckBox
+    CheckBox,
+    Tip
   },
   data () {
     return {
       mock: [],
+      showTip: false,
+      tipData: {},
       chartData: {
         series : [
           {
@@ -55,12 +60,20 @@ export default {
         this.mock = res.data
       }
     })
+  },
+  mounted () {
+    let _this = this
+    Order.$on('showTip', (res) => {
+      _this.showTip = res.showTip
+      _this.tipData = res
+    })
   }
 }
 </script>
 
 <style lang="less" scoped>
   .home {
+    position: relative;
     height: 100%;
     width: calc(100% - 200px);
     display: flex;

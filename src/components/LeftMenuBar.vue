@@ -2,9 +2,7 @@
   //- 左侧二级菜单栏
   .left-menu-bar
     //编辑菜单
-    MenuEdit(ref="edit", v-if="showEditFlag", @hideEdit="showEditFlag = false")
-    // 提示框
-    // Tip
+    MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false")
     // 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData")
       .item-wrap.lv1
@@ -29,13 +27,12 @@
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
-                .icon.options(@click.prevent.stop.self="showEdit(menuLv3)") &#xe7a8;
+                .icon.options(@click.prevent.stop.self="showEdit") &#xe7a8;
 </template>
 
 <script>
-import { Fun, Config } from '@/Order.js'
+import { Fun, Config, Order } from '@/Order.js'
 import MenuEdit from '@/components/MenuEdit'
-import Tip from '@/components/Tip'
 export default {
   data () {
     return {
@@ -48,13 +45,17 @@ export default {
     this.getGroup()
   },
   mounted () {
-    
+    let _this = this
+    Order.$on('updataMenu', (data) => {
+      if (data.type === 'add')
+      _this.addMenu(data.value)
+    })
   },
   components: {
-    MenuEdit,
-    Tip
+    MenuEdit
   },
   methods: {
+    // 获取列表
     getGroup () {
       let _this = this
       Fun.post(`${Config.serve}group/query_group_list`, {}, (result) => {
@@ -76,20 +77,33 @@ export default {
         }
       })
     },
+    // 新增菜单
+    addMenu (groupName) {
+      let _this = this
+      Fun.post(`${Config.serve}group/insert_group`, {
+        group_name: groupName
+      }, (result) => {
+        if (result.err === 0) {
+          _this.getGroup()
+        }
+      })
+    },
     // 展开和隐藏
     unfold (menu) {
       menu['isunfold'] = !menu['isunfold']
     },
+    // 显示编辑组件
     showEdit ($event) {
       this.showEditFlag = true
       let edit = this.$refs.edit.$el
       let pos = {
-        left: $event.target.offsetLeft - 150,
+        left: $event.target.offsetLeft - 146,
         top: $event.target.offsetTop + 10
       }
       edit.style.left = pos.left + 'px'
       edit.style.top = pos.top + 'px'
     },
+    // 显示系统详情
     getLv3Detail (prams) {
       let data = this.menuData
       for (let key in data) {
@@ -117,14 +131,13 @@ export default {
   .left-menu-bar {
     position: relative;
     transition: width 0.5s;
-    background-color: white;
     width: 200px;
     box-shadow: 7px 0px 10px #edf3ff;
+    background: #ffffff;
     // 分组
     .item-box {
       width: 100%;
       height: auto;
-      overflow: hidden;
       align-items: center;
       user-select: none;
       cursor: pointer;
@@ -134,7 +147,6 @@ export default {
       // 二级分组
       .menu-lv2 {
         height: auto;
-        overflow: hidden;
         .item-wrap {
           padding-left: 30px;
           .name {
@@ -150,7 +162,6 @@ export default {
           &.active, &:hover {
             padding-left: 55px;
             border-left: 5px solid #0CAAFF;
-            box-shadow: 0 5px 10px 0 rgba(34,63,253,0.30);
             background: #F5F5F5;
           }
           .name {
