@@ -4,7 +4,7 @@
       .logo-box
         .logo
         .logo-text LOGO
-      Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :style="noticeStyleList")
+      Notice(:text="noticeText", :style="noticeStyleList")
     .panel
       router-view
 </template>
@@ -18,22 +18,29 @@ export default {
   },
   mounted () {
     Order.$on('NOTICE', (data) => {
-      console.log('--------------------------')
-      console.log(data)
       let IDList = []
       data.forEach(element => {
         IDList.push(element.id)
       })
       Fun.post(`${Config.serve}monitor/get_system_notice`, IDList, (res) => {
         console.log('获取到通知数据:', res)
-        // if (res.err === 0) {
-        //   this.mock = res.data
-        // }
+        if (res.err === 0) {
+          const dataLenght = res.data.length
+          setInterval(() => {
+            const data = res.data[this.time]
+            if (this.time >= dataLenght) this.time = 0
+            // console.log(data)
+            if (data && data.sys_name) this.noticeText = `系统 ${data.sys_name} 于 ${data.time} 发送短信 ${data.content}`
+            this.time++
+          }, 1000)
+        }
       })
     })
   },
   data () {
     return {
+      time: 0,
+      noticeText: '',
       noticeMessage: [],
       noticeStyleList: {
         'line-height': '65px',

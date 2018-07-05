@@ -3,8 +3,6 @@
     .sys-back(@click="$router.go(-1)") 返回
     .sys-charts-box
       .chart(ref="chart")
-      .prev(@click="dataZoom('reduce')")
-      .next(@click="dataZoom('add')")
 </template>
 <script>
 import { Fun, Config } from '@/Order.js'
@@ -53,7 +51,7 @@ export default {
         let xAxis = []
         let value = []
         result.data.forEach(element => {
-          xAxis.push(element.now_time)
+          xAxis.push(new Date(parseInt(element.now_time + '000')).toLocaleString())
           value.push(element.total_time)
         })
         chartOption.xAxis.data = xAxis
@@ -63,29 +61,6 @@ export default {
     })
   },
   methods: {
-    // 数据缩放
-    dataZoom (type) {
-      let option = this.chartOption
-      let dataZoom = option.dataZoom[0]
-      let dates = option.xAxis.data
-      // 减
-      if (type === 'reduce') {
-        let newStartValue = dataZoom.startValue - step
-        if (newStartValue < dates[0]) return
-        dataZoom.startValue = newStartValue
-        dataZoom.endValue += step
-      } else if (type === 'add') {
-        // 加
-        console.log('x轴最大值', dates[dates.length-1])
-        let newEndValue = dataZoom.endValue + step
-        console.log('新的dataZoom.endValue', newEndValue)
-        if (newEndValue > dates[dates.length-1]) return
-        dataZoom.endValue = newEndValue
-        dataZoom.startValue += step
-      }
-      console.log('缩放后的dataZoom', this.chartOption.dataZoom)
-      this.chart.setOption(this.chartOption)
-    },
     showTitleTip (params) {
       console.log(params)
       let option = this.chartOption
@@ -123,23 +98,6 @@ export default {
       .chart {
         width: 100%;
         height: 100%;
-      }
-      .prev,.next {
-        cursor: pointer;
-        position: absolute;
-        bottom: 15px;
-        width: 10px;
-        height: 20px;
-      }
-      .prev {
-        background: url(./../assets/left-jiantou.svg) no-repeat left center;
-        background-size: cover;
-        left: 15px;
-      }
-      .next {
-        background: url(./../assets/right-jiantou.svg) no-repeat left center;
-        background-size: cover;
-        right: 85px;
       }
     }
   }
