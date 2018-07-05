@@ -1,7 +1,7 @@
 <template lang="pug">
   .edit-wrap
     .mark(@click="hideEdit")
-    .edit-box#edit
+    .edit-box#edit(v-if="editMenuData.ops")
       .option(@click="addGroup", v-if="editMenuData.ops.includes(0)") 新建分组
       .option(@click="addSubGroup", v-if="editMenuData.ops.includes(1)") 添加下级分组
       .option(@click="editGroup", v-if="editMenuData.ops.includes(2)") 重命名该组

@@ -15,7 +15,6 @@
           // .mark(v-if="item.message > 0") {{item.message}}
     .chart
       Chart(:opt="chartData", :size="{w: 400, h: 180}")
-    LeftMenuBar.left
     router-view.right-panel
 </template>
 
@@ -26,12 +25,14 @@ import { Fun, Config, Order } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
 import Tip from '@/components/Tip'
+// import LeftMenuBar from '@/components/LeftMenuBar'
 export default {
   name: 'home',
   components: {
     Chart,
     CheckBox,
     Tip
+    // LeftMenuBar
   },
   data () {
     return {

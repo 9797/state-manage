@@ -78,11 +78,11 @@ export default {
               item2['isunfold'] = false
               for (let key3 in item2.son) {
                 // 加载第一项分组数据
-                if (getFirst) {
-                  getFirst = false
-                  // Order.$emit('MENU_CLICK', key3)
-                  this.$router.push(`/state/${key3}`)
-                }
+                // if (getFirst) {
+                //   let getFirst = false
+                //   // Order.$emit('MENU_CLICK', key3)
+                //   this.$router.push(`/state/${key3}`)
+                // }
                 let item3 = item2.son[key3]
                 if (!item3) continue
               }
