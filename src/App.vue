@@ -6,17 +6,14 @@
         .logo-text LOGO
       Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :style="noticeStyleList")
     .panel
-      LeftMenuBar.left
       router-view
 </template>
 
 <script>
 import Notice from 'notice-puge'
-import LeftMenuBar from '@/components/LeftMenuBar.vue'
 export default {
   components: {
-    Notice,
-    LeftMenuBar
+    Notice
   },
   data () {
     return {
@@ -81,6 +78,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 .panel {
   height: calc(100% - 65px);
   display: flex;
+  position: relative;
   background-color: #e5e5e5;
 }
 .left-bar {
