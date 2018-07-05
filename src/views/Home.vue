@@ -1,5 +1,6 @@
 <template lang="pug">
   .home
+    LeftMenuBar.left
     .right-panel
       .tool-bar
         .sort 故障系统优先
@@ -13,12 +14,13 @@
           img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
           // .mark(v-if="item.message > 0") {{item.message}}
     .chart
-      Chart(:opt="chartData", :size="{w: 400, h: 180}", v-model="chart")
+      Chart(:opt="chartData", :size="{w: 300, h: 100}", v-model="chart")
 </template>
 
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
+import LeftMenuBar from '@/components/LeftMenuBar.vue'
 import { Order, Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
@@ -26,7 +28,8 @@ export default {
   name: 'home',
   components: {
     Chart,
-    CheckBox
+    CheckBox,
+    LeftMenuBar
   },
   data () {
     return {
@@ -37,7 +40,7 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius : '60%',
+            radius : '70%',
             center: ['50%', '60%'],
             data: [
               { value:335, name:'正常' },
@@ -82,25 +85,26 @@ export default {
 <style lang="less" scoped>
   .home {
     height: 100%;
-    width: calc(100% - 200px);
+    width: 100%;
     display: flex;
     background-color: #ebebeb;
   }
   .right-panel {
     margin: 20px;
     border-radius: 5px;
-    width: calc(100% - 40px);
+    position: relative;
+    width: calc(100% - 240px);
     background-color: white;
     .tool-bar {
-      height: 60px;
+      height: 80px;
       margin: 0 70px;
-      line-height: 60px;
+      line-height: 80px;
       font-size: 1.4rem;
       color: #4a4a4a;
       display: flex;
     }
     .check {
-      margin: 19px;
+      margin: 29px;
     }
   }
   .state-panel {
@@ -108,7 +112,7 @@ export default {
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100% - 90px);
+    height: calc(100% - 110px);
   }
   .state-item {
     height: 150px;
@@ -157,8 +161,8 @@ export default {
     background-color: #ff7f7f;
   }
   .chart {
-    position: fixed;
-    right: 0;
-    top: 40px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 </style>
