@@ -6,14 +6,14 @@
         .return 返回
       .card-box
         .card(v-for="item in sysList", :class="{added : item.isAdded}")
-          span {{item.name}} - {{item.sys_id}}
+          span {{item.name}}
           .tool.add(@click="addSys(item)") +
     .menu-systems
       .title-bar
         .sys-title 该菜单下的系统
       .card-box
         .card(v-for="item in addedSysList")
-          span {{item.name}}- {{item.sys_id}}
+          span {{item.name}}
           .tool.reduce(@click="reduceSys(item)") -
 </template>
 
