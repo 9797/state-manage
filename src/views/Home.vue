@@ -12,8 +12,8 @@
           img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
           img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
           // .mark(v-if="item.message > 0") {{item.message}}
-    .chart
-      Chart(:opt="chartData", :size="{w: 400, h: 180}")
+      .chart
+        Chart(:opt="chartData", :size="{w: 260, h: 140}")
 </template>
 
 <script>
@@ -36,8 +36,8 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius : '60%',
-            center: ['50%', '60%'],
+            radius : '80%',
+            center: ['50%', '50%'],
             data: [
               { value:335, name:'正常服务' },
               { value:310, name:'错误服务' },
@@ -83,6 +83,7 @@ export default {
   .right-panel {
     margin: 20px;
     border-radius: 5px;
+    position: relative;
     width: calc(100% - 40px);
     background-color: white;
     .tool-bar {
@@ -98,6 +99,7 @@ export default {
     }
   }
   .state-panel {
+    position: relative;
     margin: 0 40px;
     padding: 15px;
     overflow-x: hidden;
@@ -151,8 +153,8 @@ export default {
     background-color: #ff7f7f;
   }
   .chart {
-    position: fixed;
+    position: absolute;
     right: 0;
-    top: 40px;
+    top: 0;
   }
 </style>

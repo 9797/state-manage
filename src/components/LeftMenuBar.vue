@@ -67,7 +67,7 @@ export default {
                 // 加载第一项分组数据
                 if (getFirst) {
                   getFirst = false
-                  Order.$emit('MENU_CLICK', key3.group_id)
+                  Order.$emit('MENU_CLICK', key3)
                 }
                 let item3 = item2.son[key3]
                 item3.isSelect = false
