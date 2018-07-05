@@ -4,12 +4,15 @@
       .title
         span.name {{tipData.title}}
         span.close &times;
-      .text-box
+      .text-box(v-if="tipData.type === 'del' ")
         .text
-          .name {{tipData.name}}
+          .name 分组名称：
           input.input(v-model="inputVal")
+      .text-box.del(v-else)
+        .icon.warning &#xe60e;
+        .warning-text 删除后无法恢复，是否继续删除?
       .bottom
-        .cancel 取消
+        .cancel(@click="$emit('hideTip')") 取消
         .confrim(@click="confrim") 确定
 </template>
 <script>
@@ -24,10 +27,9 @@ export default {
   methods: {
     confrim () {
       this.$emit('hideTip')
-      Order.$emit('updataMenu', {
-        value: this.inputVal,
-        type: this.tipData.type
-      })
+      Order.$emit('updataMenu',  Object.assign({
+        value: this.inputVal
+      }, this.tipData))
     }
   }
 }
@@ -74,6 +76,23 @@ export default {
     }
     .text-box {
       height: calc(~"100% - 120px");
+      &.del {
+        flex-direction: column;
+        .warning {
+          width: 50px;
+          height: 50px;
+          text-align: center;
+          line-height: 50px;
+          color: #F4484C;
+          font-size: 50px;
+          margin-bottom: 20px;
+        }
+        .warning-text {
+          font-size: 16px;
+          color: #364960;
+          text-align: center;
+        }
+      }
       .flex-center();
       .text {
         height: 40px;

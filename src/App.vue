@@ -1,8 +1,10 @@
 <template lang="pug">
   .app
     .title
-      .logo
-      Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :styleList="noticeStyleList")
+      .logo-box
+        .logo
+        .logo-text LOGO
+      Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :style="noticeStyleList")
     .panel
       LeftMenuBar.left
       router-view
@@ -18,46 +20,6 @@ export default {
   },
   data () {
     return {
-      menuData: [
-        {to: '/control', icon: '&#xe626;', name: '大屏管理', routerActive: false},
-        {to: '/template', icon: '&#xe66a;', name: '模板管理', routerActive: false},
-        {
-          to: '/dataBase',
-          icon: '&#xe630;',
-          name: '数据管理',
-          showmenu: false,
-          children: [
-            {
-              to: '/dataBase/file',
-              name: '文件管理'
-            },
-            {
-              to: '/dataBase/data',
-              name: '数据管理'
-            }
-          ]
-        },
-        {
-          to: '/sms',
-          icon: '&#xe64d;',
-          name: '短信管理',
-          showmenu: false,
-          children: [
-            {
-              to: '/sms/template',
-              name: '短信模板'
-            },
-            {
-              to: '/sms/systemList',
-              name: '系统管理'
-            },
-            {
-              to: '/sms/sendRecord',
-              name: '发送记录'
-            }
-          ]
-        }
-      ],
       noticeStyleList: {
         'line-height': '65px',
         'height': '65px',
@@ -94,10 +56,26 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 .title {
   height: 65px;
   width: 100%;
-  display: flex;
   background: #364960;
-  .logo {
+  display: flex;
+  .logo-box {
     width: 200px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ffffff;
+      margin-right: 20px;
+    }
+    .logo-text {
+      line-height: 64px;
+      font-size: 20px;
+      color: #FFFFFF;
+    }
   }
 }
 .panel {
@@ -110,11 +88,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 }
 @font-face {
   font-family: 'iconfont';  /* project id 732673 */
-  src: url('//at.alicdn.com/t/font_732673_6ujho44aj77.eot');
-  src: url('//at.alicdn.com/t/font_732673_6ujho44aj77.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_732673_6ujho44aj77.woff') format('woff'),
-  url('//at.alicdn.com/t/font_732673_6ujho44aj77.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_732673_6ujho44aj77.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_732673_9cunnn6p3cr.eot');
+  src: url('//at.alicdn.com/t/font_732673_9cunnn6p3cr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_732673_9cunnn6p3cr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_732673_9cunnn6p3cr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_732673_9cunnn6p3cr.svg#iconfont') format('svg');
 }
 .icon {
   font-family:"iconfont" !important;

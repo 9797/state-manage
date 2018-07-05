@@ -4,13 +4,14 @@
     .edit-box
       .option(@click="editGroup") 重命名该组
       .option(@click="addGroup") 新建分组
-      .option 删除分组
-      .option 添加下级分组
+      .option(@click="deleteGroup") 删除分组
+      .option(@click="addSubGroup") 添加下级分组
     .tip-box
 </template>
 <script>
 import { Fun, Config, Order } from '@/Order.js'
 export default {
+  props: ['editMenuData'],
   methods: {
     // 隐藏编辑组件
     hideEdit () {
@@ -21,21 +22,41 @@ export default {
       this.hideEdit()
       let data = {
         type: 'add',
-        showTip: true,
-        title: '新增分组',
-        name: '分组名称：'
+        title: '添加分组'
       }
       this.showTip(data)
     },
     // 修改
     editGroup () {
       this.hideEdit()
-      let data = {
+      let editObj = Fun.deepClone(this.editMenuData)
+      delete editObj.son
+      let data = Object.assign({
         type: 'edit',
-        showTip: true,
-        title: '重命名分组',
-        name: '分组名称：'
-      }
+        title: '修改分组名称'
+      }, editObj)
+      this.showTip(data)
+    },
+    // 新建下级分组
+    addSubGroup () {
+      this.hideEdit()
+      let editObj = Fun.deepClone(this.editMenuData)
+      delete editObj.son
+      let data = Object.assign({
+        type: 'addSub',
+        title: '添加下级分组'
+      }, editObj)
+      this.showTip(data)
+    },
+    // 删除分组
+    deleteGroup () {
+      this.hideEdit()
+      let editObj = Fun.deepClone(this.editMenuData)
+      delete editObj.son
+      let data = Object.assign({
+        type: 'del',
+        title: '添加下级分组'
+      }, editObj)
       this.showTip(data)
     },
     // 显示提示框
