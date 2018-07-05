@@ -22,9 +22,9 @@
             .icon.options(@click.prevent.stop.self="showEdit($event,menuLv2)") &#xe7a8;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
-            .menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", @click="menuClick(menuLv3.group_id)")
-              .item-wrap.lv3(:class="{active:menuLv3.isSelect}")
-                .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
+            router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
+              .item-wrap.lv3
+                .text
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
                 .icon.options(@click.prevent.stop.self="showEdit(menuLv1)") &#xe7a8;
@@ -84,7 +84,6 @@ export default {
                 }
                 let item3 = item2.son[key3]
                 if (!item3) continue
-                item3.isSelect = false
               }
             }
           }
@@ -145,31 +144,6 @@ export default {
       }
       edit.style.left = pos.left + 'px'
       edit.style.top = pos.top + 'px'
-    },
-    // 显示系统详情
-    getLv3Detail (prams) {
-      let data = this.menuData
-      for (let key in data) {
-        let item1 = data[key]
-        if (!item1) return
-        for (let key2 in item1.son) {
-          let item2 = item1.son[key2]
-          if (!item2) return
-          for (let key3 in item2.son) {
-            let item3 = item2.son[key3]
-            if (!item3) return
-            if (item3.group_id === prams.group_id) {
-              item3.isSelect = true
-            } else {
-              item3.isSelect = false
-            }
-          }
-        }
-      }  
-    },
-    menuClick (group_id) {
-      console.log('跳转路由:', `/state/${group_id}`)
-      this.$router.push(`/state/${group_id}`)
     }
   }
 }
@@ -205,12 +179,17 @@ export default {
       }
       // 三级分组
       .menu-lv3 {
-        .item-wrap {
-          padding-left: 60px;
-          &.active, &:hover {
+        &.router-link-active, &:hover {
+          .item-wrap {
             padding-left: 55px;
             border-left: 5px solid #0CAAFF;
             background: #F5F5F5;
+          }
+        }
+        .item-wrap {
+          padding-left: 60px;
+          .text {
+            pointer-events: none;
           }
           .name {
             font-size: 16px;
