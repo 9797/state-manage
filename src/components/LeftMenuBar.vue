@@ -171,7 +171,7 @@ export default {
     position: relative;
     transition: width 0.5s;
     width: 200px;
-    box-shadow: 7px 0px 10px #edf3ff;
+    box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;
     // 分组
     .item-box {
