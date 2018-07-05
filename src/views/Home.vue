@@ -55,7 +55,7 @@ export default {
           this.chart.setOption(this.chartData)
         }
       })
-      Fun.post(`${Config.serve}monitor/get_system_state`, {id}, (res) => {
+      Fun.post(`${Config.serve}monitor/get_system_state`, {group_id: id}, (res) => {
         console.log('获取到状态数据:', res)
         if (res.err === 0) {
           this.mock = res.data

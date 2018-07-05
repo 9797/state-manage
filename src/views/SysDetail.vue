@@ -7,6 +7,7 @@
       .next(@click="dataZoom('add')")
 </template>
 <script>
+import { Fun, Config } from '@/Order.js'
 // 默认柱状图
 import chartOption from '@/assets/chart.json'
 // 引入基本模板
@@ -26,13 +27,12 @@ const step = 5
 export default {
   data () {
     return {
-      chartOption,
       chart: null
     }
   },
   mounted () {
     this.chart = echarts.init(this.$refs.chart)
-    this.chart.setOption(this.chartOption)
+    this.chart.setOption(chartOption)
     let _this = this
     window.addEventListener('resize', () => {
       setTimeout(() => {
@@ -46,6 +46,21 @@ export default {
     //     console.log(params)
     //   }
     // }
+    const params = this.$route.params
+    Fun.post(`${Config.serve}monitor/bargraph`, {id: params.id, reqmethod: params.reqmethod}, (result) => {
+      if (result.err === 0) {
+        let chartCopy = chartOption
+        let xAxis = []
+        let value = []
+        result.data.forEach(element => {
+          xAxis.push(element.now_time)
+          value.push(element.total_time)
+        })
+        chartOption.xAxis.data = xAxis
+        chartOption.series[0].data = value
+        this.chart.setOption(chartOption)
+      }
+    })
   },
   methods: {
     // 数据缩放

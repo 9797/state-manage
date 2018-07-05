@@ -30,7 +30,7 @@ export default new Router({
     //   component: About
     // },
     {
-      path: '/sysdetail',
+      path: '/sysdetail/:id/:reqmethod',
       name: 'SysDetail',
       component: SysDetail
     }
