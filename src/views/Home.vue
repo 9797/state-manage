@@ -1,6 +1,20 @@
 <template lang="pug">
   .home
-    LeftMenuBar.left
+    Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
+    .right-panel
+      .tool-bar
+        .sort 故障系统优先
+        CheckBox.check(:size="18")
+      .state-panel
+        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
+          .service
+          .name {{item.name}}
+          img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
+          img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
+          img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
+          // .mark(v-if="item.message > 0") {{item.message}}
+    .chart
+      Chart(:opt="chartData", :size="{w: 400, h: 180}")
     router-view.right-panel
 </template>
 
@@ -11,12 +25,15 @@ import LeftMenuBar from '@/components/LeftMenuBar.vue'
 import { Order, Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
+import Tip from '@/components/Tip'
+// import LeftMenuBar from '@/components/LeftMenuBar'
 export default {
   name: 'home',
   components: {
     Chart,
     CheckBox,
-    LeftMenuBar
+    Tip
+    // LeftMenuBar
   },
   data () {
     return {
