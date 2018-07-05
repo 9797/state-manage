@@ -34,6 +34,7 @@ export default {
   data () {
     return {
       mock: [],
+      // 显示提示框
       showTip: false,
       tipData: {},
       chartData: {
@@ -63,9 +64,9 @@ export default {
   },
   mounted () {
     let _this = this
-    Order.$on('showTip', (res) => {
-      _this.showTip = res.showTip
-      _this.tipData = res
+    Order.$on('showTip', (option) => {
+      _this.showTip = true
+      _this.tipData = option
     })
   }
 }
