@@ -23,7 +23,7 @@
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
-              .item-wrap.lv3(:class="{active:menuLv3.isSelect}")
+              .item-wrap.lv3
                 .text(@click.prevent.stop.self="getLv3Detail(menuLv3)")
                   // .icon.unfold &#xe643;
                   p.name {{menuLv3.group_name}}
@@ -161,27 +161,6 @@ export default {
       }
       editBox.style.left = pos.left + 'px'
       editBox.style.top = pos.top + 'px'
-    },
-    // 显示系统详情
-    getLv3Detail (prams) {
-      let data = this.menuData
-      for (let key in data) {
-        let item1 = data[key]
-        if (!item1) return
-        for (let key2 in item1.son) {
-          let item2 = item1.son[key2]
-          if (!item2) return
-          for (let key3 in item2.son) {
-            let item3 = item2.son[key3]
-            if (!item3) return
-            if (item3.group_id === prams.group_id) {
-              item3.isSelect = true
-            } else {
-              item3.isSelect = false
-            }
-          }
-        }
-      }
     }
   }
 }
