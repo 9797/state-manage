@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getData (id) {
-      console.log(this.$route.params.id)
+      // console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
@@ -71,6 +71,9 @@ export default {
         console.log('获取到状态数据:', res)
         if (res.err === 0) {
           this.mock = res.data
+          setTimeout(() => {
+            Order.$emit('NOTICE', res.data)
+          }, 0)
         }
       })
     }
