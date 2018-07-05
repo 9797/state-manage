@@ -42,22 +42,6 @@ export default {
       }
     }
   },
-<<<<<<< HEAD
-=======
-  created () {
-    Order.$on(`MENU_CLICK`, (id) => {
-      console.log('MENU_CLICK')
-      this.getData(id)
-    })
-  },
-  mounted () {
-    let _this = this
-    Order.$on('showTip', (option) => {
-      _this.showTip = true
-      _this.tipData = option
-    })
-  },
->>>>>>> 0a2389281ad0caf7c2f5ba7c0647a28464936be3
   methods: {
     getData (id) {
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {

@@ -1,15 +1,10 @@
 <template lang="pug">
   .app
     .title
-<<<<<<< HEAD
-      .logo LOGO
-      Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :styleList="noticeStyleList")
-=======
       .logo-box
         .logo
         .logo-text LOGO
       Notice(text="XX系统于2018-10-12故障，已下发短信提醒。", :style="noticeStyleList")
->>>>>>> 0a2389281ad0caf7c2f5ba7c0647a28464936be3
     .panel
       router-view
 </template>
@@ -62,12 +57,6 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   display: flex;
   .logo-box {
     width: 200px;
-<<<<<<< HEAD
-    line-height: 65px;
-    text-align: center;
-    color: white;
-    font-size: 2rem;
-=======
     height: 100%;
     display: flex;
     align-items: center;
@@ -84,7 +73,6 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
       font-size: 20px;
       color: #FFFFFF;
     }
->>>>>>> 0a2389281ad0caf7c2f5ba7c0647a28464936be3
   }
 }
 .panel {
