@@ -1,55 +1,49 @@
 <template lang="pug">
-  .home
-    Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
-    .right-panel
-      .tool-bar
-        .sort 故障系统优先
-        CheckBox.check(:size="18")
-      .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.state === 1, error: item.state === 2}", @click="$router.push('/sysdetail')")
-          .service
-          .name {{item.name}}
-          img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
-          img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
-          img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
-          // .mark(v-if="item.message > 0") {{item.message}}
+  .right-panel
+    .tool-bar
+      .sort 故障系统优先
+      CheckBox.check(:size="18")
+    .state-panel
+      .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail')")
+        .service
+        .name {{item.name}}
+        img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
+        img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
+        img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
+        // .mark(v-if="item.message > 0") {{item.message}}
     .chart
-      Chart(:opt="chartData", :size="{w: 400, h: 180}")
-    LeftMenuBar.left
-    router-view.right-panel
+      Chart(:opt="chartData", :size="{w: 300, h: 100}", v-model="chart")
 </template>
 
 <script>
 import 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
-import { Fun, Config, Order } from '@/Order.js'
+import LeftMenuBar from '@/components/LeftMenuBar.vue'
+import { Order, Fun, Config } from '@/Order.js'
 import Chart from 'echarts-middleware'
 import CheckBox from 'check-puge'
-import Tip from '@/components/Tip'
 export default {
   name: 'home',
   components: {
     Chart,
     CheckBox,
-    Tip
+    LeftMenuBar
   },
   data () {
     return {
       mock: [],
-      // 显示提示框
-      showTip: false,
-      tipData: {},
+      chart: null,
       chartData: {
         series : [
           {
             name: '访问来源',
             type: 'pie',
-            radius : '60%',
+            radius : '70%',
             center: ['50%', '60%'],
             data: [
-              { value:335, name:'正常服务' },
-              { value:310, name:'错误服务' },
-              { value:234, name:'已经关机' }
+              { value:335, name:'正常' },
+              { value:335, name:'故障' },
+              { value:234, name:'错误' }
             ]
           }
         ]
@@ -57,22 +51,11 @@ export default {
     }
   },
   created () {
-    Fun.post(`${Config.serve}monitor/get_system_state`, {id: 1}, (res) => {
-      console.log(res)
-      if (res.err === 0) {
-        this.mock = res.data
-      }
-    })
-  },
-  mounted () {
-    let _this = this
-    Order.$on('showTip', (option) => {
-      _this.showTip = true
-      _this.tipData = option
-    })
+    this.getData(this.$route.params.id)
   },
   methods: {
     getData (id) {
+      console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
@@ -91,33 +74,38 @@ export default {
         }
       })
     }
+  },
+  watch: {
+    '$route.params.id' (value) {
+      this.getData(this.$route.params.id)
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
   .home {
-    position: relative;
     height: 100%;
-    width: calc(100% - 200px);
+    width: 100%;
     display: flex;
     background-color: #ebebeb;
   }
   .right-panel {
     margin: 20px;
     border-radius: 5px;
-    width: calc(100% - 40px);
-    background-color: #cccccc;
+    position: relative;
+    width: calc(100% - 240px);
+    background-color: white;
     .tool-bar {
-      height: 60px;
+      height: 80px;
       margin: 0 70px;
-      line-height: 60px;
+      line-height: 80px;
       font-size: 1.4rem;
       color: #4a4a4a;
       display: flex;
     }
     .check {
-      margin: 19px;
+      margin: 29px;
     }
   }
   .state-panel {
@@ -125,7 +113,7 @@ export default {
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100% - 200px);
+    height: calc(100% - 110px);
   }
   .state-item {
     height: 150px;
@@ -175,8 +163,8 @@ export default {
     background-color: #ff7f7f;
   }
   .chart {
-    position: fixed;
-    right: 0;
-    top: 0;
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 </style>
