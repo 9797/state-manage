@@ -4,7 +4,7 @@
     //编辑菜单
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false")
     // 一级
-    .item-box(v-for="(menuLv1, key1, index1) in menuData")
+    .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1
         .text(@click.prevent.stop.self="unfold(menuLv1)")
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
@@ -49,6 +49,8 @@ export default {
     Order.$on('updataMenu', (data) => {
       if (data.type === 'add')
       _this.addMenu(data.value)
+      if (data.type === 'edit')
+      _this.editMenu(data.value)
     })
   },
   components: {
@@ -63,22 +65,36 @@ export default {
           let data = result.data
           for (let key in data) {
             let item1 = data[key]
+            if (!item1) continue
             item1['isunfold'] = false
             for (let key2 in item1.son) {
               let item2 = item1.son[key2]
+              if (!item2) continue
               item2['isunfold'] = false
               for (let key3 in item2.son) {
                 let item3 = item2.son[key3]
+                if (!item3) continue
                 item3.isSelect = false
               }
             }
           }
+          console.log(data)
           _this.menuData = data
         }
       })
     },
     // 新增菜单
     addMenu (groupName) {
+      let _this = this
+      Fun.post(`${Config.serve}group/insert_group`, {
+        group_name: groupName
+      }, (result) => {
+        if (result.err === 0) {
+          _this.getGroup()
+        }
+      })
+    },
+    editMenu () {
       let _this = this
       Fun.post(`${Config.serve}group/insert_group`, {
         group_name: groupName

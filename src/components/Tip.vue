@@ -39,9 +39,6 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .tip-box {
-    
-  }
   .tip {
     z-index: 11;
     position: absolute;
