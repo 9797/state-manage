@@ -1,6 +1,8 @@
 <template lang="pug">
   .detail-box
-    .sys-back(@click="$router.go(-1)") 返回
+    .sys-top-title
+      .sys-name 系统名称
+      .sys-back 返回
     .sys-charts-box
       .chart(ref="chart")
       .prev(@click="dataZoom('reduce')")
@@ -86,18 +88,19 @@ export default {
   .detail-box {
     width: 100%;
     height: 100%;
-    background-color: white;
-    .sys-back {
-      top: 0;
-      position: fixed;
-      right: 0;
-      cursor: pointer;
-      height: 65px;
-      line-height: 65px;
-      color: white;
-      width: 108px;
-      text-align: center;
-      font-size: 1.4rem;
+    .sys-top-title {
+      height: 64px;
+      padding: 0 40px;
+      font-size: 20px;
+      color: #424751;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      box-shadow: 0 8px 15px 0 rgba(71,137,255,0.10);
+      .sys-back {
+        cursor: pointer;
+      }
     }
     .sys-charts-box {
       position: relative;
