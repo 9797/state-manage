@@ -1,8 +1,9 @@
 <template lang="pug">
   .home
     Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
-    LeftMenuBar.left
-    router-view.right-panel
+    LeftMenuBar.left(:class="{show: showLrftBar}")
+    router-view
+    .menu.icon(@click="showLrftBar = !showLrftBar") &#xe656;
 </template>
 
 <script>
@@ -17,6 +18,7 @@ export default {
   },
   data () {
     return {
+      showLrftBar: false,
       showTip: false,
       tipData: {}
     }
@@ -42,24 +44,10 @@ export default {
     display: flex;
     background-color: #ebebeb;
   }
-  .right-panel {
-    width: calc(~"100% - 240px");
-    height: calc(~"100% - 40px");
-    overflow: auto;
-    margin: 20px;
-    border-radius: 5px;
-    position: relative;
-    background-color: white;
-    .tool-bar {
-      height: 80px;
-      margin: 0 70px;
-      line-height: 80px;
-      font-size: 1.4rem;
-      color: #4a4a4a;
-      display: flex;
-    }
-    .check {
-      margin: 29px;
-    }
+  .menu {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    font-size: 2.4rem;
   }
 </style>

@@ -179,6 +179,8 @@ export default {
     width: 200px;
     height: 100%;
     overflow: auto;
+    transition: all 0.5s;
+    position: relative;
     position: relative;
     box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;
