@@ -27,8 +27,8 @@ export default {
         if (res.err === 0) {
           const dataLenght = res.data.length
           setInterval(() => {
+            if (this.time >= dataLenght) { this.time = 0 }
             const data = res.data[this.time]
-            if (this.time >= dataLenght) this.time = 0
             // console.log(data)
             if (data && data.sys_name) this.noticeText = `系统 ${data.sys_name} 于 ${data.time} 发送短信 ${data.content}`
             this.time++

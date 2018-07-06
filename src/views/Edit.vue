@@ -91,6 +91,9 @@ export default {
 
 <style lang="less" scoped>
   .edit-box {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     border-radius: 0;
     background: transparent;
   }
@@ -115,7 +118,7 @@ export default {
     border-radius: 5px;
     background-color: #ffffff;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
   }
   .menu-systems {
     min-height: 400px;
@@ -123,6 +126,7 @@ export default {
     border-radius: 5px;
     background-color: #ffffff;
     padding: 20px;
+    margin: 20px;
     height: auto;
   }
   .card-box {
