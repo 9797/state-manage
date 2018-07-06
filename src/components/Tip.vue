@@ -7,7 +7,7 @@
       .text-box(v-if="tipData.type !== 'del' ")
         .text
           .name 分组名称：
-          input.input(v-model="inputVal")
+          input.input(v-model="inputVal", placeholder="请输入分组名称")
       .text-box.del(v-else)
         .icon.warning &#xe60e;
         .warning-text 删除后无法恢复，是否继续删除?
@@ -25,6 +25,7 @@ export default {
   },
   props: ['tipData'],
   created () {
+    if (this.tipData.type === 'edit')
     this.inputVal = this.tipData.group_name
   },
   methods: {

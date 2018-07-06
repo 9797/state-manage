@@ -3,14 +3,14 @@
     .systems
       .title-bar
         .sys-title 全部系统
-        .return 返回
+        .return(@click="$router.back()") 返回
       .card-box
         .card(v-for="item in sysList", :class="{added : item.isAdded}")
           span {{item.name}}
           .tool.add(@click="addSys(item)") +
     .menu-systems
       .title-bar
-        .sys-title 该菜单下的系统
+        .sys-title {{groupLevel.lv1}} &gt; {{groupLevel.lv2}} &gt; {{groupLevel.lv3}}
       .card-box
         .card(v-for="item in addedSysList")
           span {{item.name}}
@@ -24,12 +24,24 @@ export default {
     return {
       sysList: [],
       addedSysList: [],
-      groupId: null
+      groupId: null,
+      groupLevel: {}
     }
   },
   created () {
     this.groupId = this.$route.params.id
     this.getSysList()
+  },
+  mounted () {
+    let _this = this
+    Order.$on('GroupLevel', (data) => {
+      _this.groupLevel.lv1 = data.lv1
+      _this.groupLevel.lv2 = data.lv2
+      _this.groupLevel.lv3 = data.lv3
+    })
+  },
+  beforeDestroy () {
+     Order.$off('GroupLevel')
   },
   methods: {
     // 获取sys列表
@@ -62,6 +74,7 @@ export default {
     // 增加
     addSys (sysObj) {
       let _this = this
+      console.log('sysObj', sysObj)
       if (sysObj.isAdded) return
       Fun.post(`${Config.serve}monitor/insert_group_system`, {
         sys_id: sysObj.sys_id,
@@ -74,8 +87,13 @@ export default {
     },
     // 删除
     reduceSys (sysObj) {
-      this.addedSysList.forEach((item) => {
-        if (item === sysObj) {
+      let _this = this
+      Fun.post(`${Config.serve}monitor/delete_group_system`, {
+        sys_id: sysObj.sys_id,
+        group_id: this.groupId
+      }, (res) => {
+        if (res.err === 0) {
+          _this.getSysList()
         }
       })
     }

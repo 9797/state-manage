@@ -6,28 +6,27 @@
     // 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1
-        .text(@click.prevent.stop.self="unfold(menuLv1)")
+        .text(@click="unfold(menuLv1)", :title="menuLv1.group_name")
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
-        .icon.options(@click.prevent.stop.self="showEdit($event,menuLv1)") &#xe612;
+        .icon.options(@click.stop.self="showEdit($event,menuLv1)") &#xe612;
       // 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
           .item-wrap.lv2
-            .text(@click.prevent.stop.self="unfold(menuLv2)")
+            .text(@click="unfold(menuLv2)", :title="menuLv2.group_name")
               .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
-            .icon.options(@click.prevent.stop.self="showEdit($event,menuLv2)") &#xe612;
+            .icon.options(@click.stop.self="showEdit($event,menuLv2)") &#xe612;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
               .item-wrap.lv3
-                .text
-                  // .icon.unfold &#xe643;
-                  p.name {{menuLv3.group_name}}
-                .icon.options(@click.prevent.stop.self="showEdit($event,menuLv3, 3)") &#xe612;
+                .text(:title="menuLv2.group_name")
+                  p.name(:title="menuLv3.group_name") {{menuLv3.group_name}}
+                .icon.options(@click.stop.self="showEdit($event, mergObj(menuLv3, menuLv1.group_name, menuLv2.group_name), 3)") &#xe612;
 </template>
 
 <script>
@@ -65,6 +64,14 @@ export default {
     MenuEdit
   },
   methods: {
+    // 对象合并
+    mergObj () {
+      return Object.assign(arguments[0], {
+        lv1: arguments[1],
+        lv2: arguments[2],
+        lv3: arguments[0].group_name
+      })
+    },
     // 获取列表
     getGroup () {
       let _this = this
