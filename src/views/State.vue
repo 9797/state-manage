@@ -1,18 +1,19 @@
 <template lang="pug">
   .right-panel
-    .tool-bar
-      .sort 故障系统优先
-      CheckBox.check(:size="18")
-    .state-panel
-      .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail/' + item.id + '/' + item.reqmethod)")
-        .service
-        .name {{item.name}}
-        img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
-        img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
-        img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
-        // .mark(v-if="item.message > 0") {{item.message}}
-    .chart
-      Chart(v-model="chartData", :size="{w: 300, h: 100}")
+    .state-panel-box(v-if="mock")
+      .tool-bar
+        .sort 故障系统优先
+        CheckBox.check(:size="18")
+      .state-panel
+        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail/' + item.id + '/' + item.reqmethod)")
+          .service
+          .name {{item.name}}
+          img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")
+          img.state-item-icon(v-if="item.now === 1", src="../assets/warn.png")
+          img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
+          // .mark(v-if="item.message > 0") {{item.message}}
+      .chart
+        Chart(v-model="chartData", :size="{w: 300, h: 100}")
 </template>
 
 <script>
@@ -33,6 +34,26 @@ export default {
     return {
       mock: [],
       chart: null,
+      chartDataCopy: {
+        label:{
+          show: true,
+          formatter: '{b} \n ({c}台)'
+        },
+        color: ['#2d8c2d', '#f9f905', '#fb0e0e'],
+        series : [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius : '70%',
+            center: ['50%', '60%'],
+            data: [
+              { value:335, name:'正常' },
+              { value:335, name:'故障' },
+              { value:234, name:'错误' }
+            ]
+          }
+        ]
+      },
       chartData: {
         label:{
           show: true,
@@ -60,13 +81,14 @@ export default {
   },
   methods: {
     getData (id) {
-      const chartDataCopy = this.chartData
+      const chartDataCopy = this.chartDataCopy
       // console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
           // this.mock = res.data
-          if (typeof res.data === 'object') {
+          console.log(res.data.total)
+          if (res.data.total !== 0) {
             chartDataCopy.series[0].data[0].value = res.data.normal
             chartDataCopy.series[0].data[1].value = res.data.fault
             chartDataCopy.series[0].data[2].value = res.data.error
@@ -83,6 +105,11 @@ export default {
           this.mock = res.data
           setTimeout(() => {
             Order.$emit('NOTICE', res.data)
+          }, 0)
+        } else {
+          this.mock = null
+          setTimeout(() => {
+            Order.$emit('NOTICE', [])
           }, 0)
         }
       })

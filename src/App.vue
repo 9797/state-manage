@@ -22,6 +22,8 @@ export default {
       data.forEach(element => {
         IDList.push(element.id)
       })
+      // 如果没有可请求的通知机器不向后端进行请求
+      if (IDList.length === 0) return
       Fun.post(`${Config.serve}monitor/get_system_notice`, IDList, (res) => {
         console.log('获取到通知数据:', res)
         if (res.err === 0) {
