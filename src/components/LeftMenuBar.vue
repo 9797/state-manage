@@ -183,8 +183,8 @@ export default {
 
 <style lang="less" scoped>
   .left-menu-bar {
+    transition: all 0.5s;
     position: relative;
-    transition: width 0.5s;
     width: 200px;
     box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;

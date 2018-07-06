@@ -65,11 +65,15 @@ export default {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
           // this.mock = res.data
-          chartDataCopy.series[0].data[0].value = res.data.normal
-          chartDataCopy.series[0].data[1].value = res.data.fault
-          chartDataCopy.series[0].data[2].value = res.data.error
-          // console.log(this.chartData)
-          this.chartData = chartDataCopy
+          if (typeof res.data === 'object') {
+            chartDataCopy.series[0].data[0].value = res.data.normal
+            chartDataCopy.series[0].data[1].value = res.data.fault
+            chartDataCopy.series[0].data[2].value = res.data.error
+            // console.log(this.chartData)
+            this.chartData = chartDataCopy
+          } else {
+            this.chartData = null
+          }
         }
       })
       Fun.post(`${Config.serve}monitor/get_system_state`, {group_id: id}, (res) => {
@@ -102,7 +106,8 @@ export default {
     margin: 20px;
     border-radius: 5px;
     position: relative;
-    width: calc(100% - 240px);
+    width: calc(~"100% - 240px");
+    height: calc(~"100% - 40px");
     background-color: white;
     .tool-bar {
       height: 80px;

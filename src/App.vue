@@ -127,4 +127,43 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   padding-left: 20px;
   width: calc(100% - 200px);
 }
+@media screen and (max-width: 980px) {
+  .title {
+    .logo-box {
+      display: none;
+    }
+    .notice-box {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  .panel .home {
+    .left-menu-bar {
+      position: fixed;
+      left: -200px;
+    }
+    .show {
+      left: 0;
+      z-index: 1;
+      height: 100%;
+    }
+    .right-panel {
+      position: absolute;
+      margin: 0;
+      width: 100%;
+      .tool-bar {
+        margin: 0 10px;
+        line-height: 40px;
+        height: 40px;
+      }
+      .check {
+        margin: 10px;
+      }
+      .state-panel {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
 </style>
