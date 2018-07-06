@@ -4,7 +4,7 @@
       .logo-box
         .logo
         .logo-text LOGO
-      Notice(:text="noticeText", :style="noticeStyleList")
+      Notice.notice-box(:text="noticeText", :style="noticeStyleList")
     .panel
       router-view
 </template>
@@ -42,11 +42,7 @@ export default {
       time: 0,
       noticeText: '',
       noticeMessage: [],
-      noticeStyleList: {
-        'line-height': '65px',
-        'height': '65px',
-        'color': 'white'
-      }
+      noticeStyleList: {}
     }
   }
 }
@@ -122,5 +118,13 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
+}
+.notice-box {
+  line-height: 65px;
+  height: 65px;
+  color: white;
+  margin: 0;
+  padding-left: 20px;
+  width: calc(100% - 200px);
 }
 </style>
