@@ -1,5 +1,5 @@
 <template lang="pug">
-  .tip-box.mark
+  .tip-box.mark(@click.self="$emit('hideTip')")
     .tip
       .title
         span.name {{tipData.title}}
@@ -7,7 +7,7 @@
       .text-box(v-if="tipData.type !== 'del' ")
         .text
           .name 分组名称：
-          input.input(v-model="inputVal", placeholder="请输入分组名称")
+          input.input(v-model="inputVal", placeholder="请输入分组名称", @keyup.enter="confrim")
       .text-box.del(v-else)
         .icon.warning &#xe60e;
         .warning-text 删除后无法恢复，是否继续删除?

@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     showTitleTip (params) {
-      console.log(params)
       let option = this.chartOption
       option.title.show = true
     }

@@ -8,10 +8,9 @@
         .card(v-for="item in sysList", :class="{added : item.isAdded}")
           span {{item.name}}
           .tool.add(@click="addSys(item)") +
-    .menu-systems
+    .menu-systems(v-if="groupData.id")
       .title-bar
-        .sys-title(v-if="groupData.id") {{groupData.lv1}} &gt; {{groupData.lv2}} &gt; {{groupData.lv3}}
-        .sys-title(v-else) 未知系统
+        .sys-title {{groupData.lv1}} &gt; {{groupData.lv2}} &gt; {{groupData.lv3}}
       .card-box
         .card(v-for="item in addedSysList")
           span {{item.name}}
@@ -29,7 +28,6 @@ export default {
     }
   },
   created () {
-    console.log(this.$route)
     let queryData = this.$route.params
     this.groupData = queryData
     this.getSysList()
@@ -65,7 +63,6 @@ export default {
     // 增加
     addSys (sysObj) {
       let _this = this
-      console.log('sysObj', sysObj)
       if (sysObj.isAdded) return
       Fun.post(`${Config.serve}monitor/insert_group_system`, {
         sys_id: sysObj.sys_id,
