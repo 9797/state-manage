@@ -18,7 +18,7 @@ export default new Router({
           component: State
         },
         {
-          path: '/edit/:id',
+          path: '/edit',
           name: 'edit',
           component: Edit
         }

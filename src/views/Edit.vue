@@ -8,9 +8,9 @@
         .card(v-for="item in sysList", :class="{added : item.isAdded}")
           span {{item.name}}
           .tool.add(@click="addSys(item)") +
-    .menu-systems
+    .menu-systems(v-if="groupData.id")
       .title-bar
-        .sys-title {{groupLevel.lv1}} &gt; {{groupLevel.lv2}} &gt; {{groupLevel.lv3}}
+        .sys-title {{groupData.lv1}} &gt; {{groupData.lv2}} &gt; {{groupData.lv3}}
       .card-box
         .card(v-for="item in addedSysList")
           span {{item.name}}
@@ -18,36 +18,25 @@
 </template>
 
 <script>
-import { Order, Fun, Config } from '@/Order.js'
+import { Fun, Config } from '@/Order.js'
 export default {
   data () {
     return {
       sysList: [],
       addedSysList: [],
-      groupId: null,
-      groupLevel: {}
+      groupData: {}
     }
   },
   created () {
-    this.groupId = this.$route.params.id
+    let queryData = this.$route.params
+    this.groupData = queryData
     this.getSysList()
-  },
-  mounted () {
-    let _this = this
-    Order.$on('GroupLevel', (data) => {
-      _this.groupLevel.lv1 = data.lv1
-      _this.groupLevel.lv2 = data.lv2
-      _this.groupLevel.lv3 = data.lv3
-    })
-  },
-  beforeDestroy () {
-     Order.$off('GroupLevel')
   },
   methods: {
     // 获取sys列表
     getSysList () {
       let _this = this
-      Fun.post(`${Config.serve}monitor/query_group_system_list`, {id: this.groupId}, (res) => {
+      Fun.post(`${Config.serve}monitor/query_group_system_list`, {id: this.groupData.id}, (res) => {
         if (res.err === 0) {
           let sysListTmp = Fun.deepClone(res.data)
           let sysListGroup = sysListTmp.group
@@ -74,7 +63,6 @@ export default {
     // 增加
     addSys (sysObj) {
       let _this = this
-      console.log('sysObj', sysObj)
       if (sysObj.isAdded) return
       Fun.post(`${Config.serve}monitor/insert_group_system`, {
         sys_id: sysObj.sys_id,
