@@ -24,9 +24,13 @@ export default {
     }
   },
   props: ['tipData'],
+  created () {
+    this.inputVal = this.tipData.group_name
+  },
   methods: {
     confrim () {
       this.$emit('hideTip')
+      if (this.inputVal === this.tipData.group_name) return
       Order.$emit('updataMenu',  Object.assign({
         value: this.inputVal
       }, this.tipData))
@@ -146,10 +150,10 @@ export default {
   .mark {
     z-index: 9;
     position: absolute;
-    left: 20px;
+    left: 220px;
     top: 20px;
     bottom: 20px;
     right: 20px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
   }
 </style>

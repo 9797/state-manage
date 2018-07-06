@@ -56,7 +56,7 @@ export default {
       delete editObj.son
       let data = Object.assign({
         type: 'del',
-        title: '添加下级分组'
+        title: '删除分组'
       }, editObj)
       this.showTip(data)
     },
@@ -69,9 +69,6 @@ export default {
     showTip (data) {
       Order.$emit('showTip', data)
     }
-  },
-  beforeDestroy () {
-    Order.$off('showTip')
   }
 }
 </script>

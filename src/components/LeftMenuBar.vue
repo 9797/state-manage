@@ -58,6 +58,9 @@ export default {
       _this.delMenu(data)
     })
   },
+  beforeDestroy () {
+    Order.$off('updataMenu')
+  },
   components: {
     MenuEdit
   },
