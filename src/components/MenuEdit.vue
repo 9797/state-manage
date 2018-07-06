@@ -63,9 +63,17 @@ export default {
     // 编辑
     editGroup () {
       this.hideEdit()
-      this.$router.push(`/edit/${this.editMenuData.group_id}`)
       // 传递菜单分级到edit页面
-      Order.$emit('GroupLevel', this.editMenuData)
+      this.$router.push({
+        // path: `/edit`,
+        name: 'edit',
+        params: {
+          id: this.editMenuData.group_id,
+          lv1: this.editMenuData.lv1,
+          lv2: this.editMenuData.lv2,
+          lv3: this.editMenuData.lv3
+        }
+      })
     },
     // 显示提示框
     showTip (data) {
