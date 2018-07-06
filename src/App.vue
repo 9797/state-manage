@@ -37,6 +37,9 @@ export default {
       })
     })
   },
+  beforeDestroy () {
+    Order.$off('NOTICE')
+  },
   data () {
     return {
       time: 0,
