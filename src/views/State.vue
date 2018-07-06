@@ -12,7 +12,7 @@
         img.state-item-icon(v-if="item.now === 2", src="../assets/error.png")
         // .mark(v-if="item.message > 0") {{item.message}}
     .chart
-      Chart(:opt="chartData", :size="{w: 300, h: 100}", v-model="chart")
+      Chart(v-model="chartData", :size="{w: 300, h: 100}")
 </template>
 
 <script>
@@ -34,6 +34,10 @@ export default {
       mock: [],
       chart: null,
       chartData: {
+        label:{
+          show: true,
+          formatter: '{b} \n ({c}台)'
+        },
         series : [
           {
             name: '访问来源',
@@ -55,16 +59,17 @@ export default {
   },
   methods: {
     getData (id) {
+      const chartDataCopy = this.chartData
       // console.log(this.$route.params.id)
       Fun.post(`${Config.serve}monitor/Piechart`, {id}, (res) => {
         console.log('获取到图表数据:', res)
         if (res.err === 0) {
           // this.mock = res.data
-          this.chartData.series[0].data[0].value = res.data.normal
-          this.chartData.series[0].data[1].value = res.data.fault
-          this.chartData.series[0].data[2].value = res.data.error
+          chartDataCopy.series[0].data[0].value = res.data.normal
+          chartDataCopy.series[0].data[1].value = res.data.fault
+          chartDataCopy.series[0].data[2].value = res.data.error
           // console.log(this.chartData)
-          this.chart.setOption(this.chartData)
+          this.chartData = chartDataCopy
         }
       })
       Fun.post(`${Config.serve}monitor/get_system_state`, {group_id: id}, (res) => {

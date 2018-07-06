@@ -124,25 +124,7 @@
     }
   }],
   "series": [{
-    "type": "bar",
-    "areaStyle": {
-      "normal": {
-        "color": {
-          "type": "linear",
-          "x": 0,
-          "y": 0,
-          "x2": 0,
-          "y2": 1,
-          "colorStops": [{
-            "offset": 0,
-            "color": "#7398ff"
-          }, {
-            "offset": 1,
-            "color": "#c0d1ff"
-          }]
-        }
-      }
-    },
+    "type": "line",
     "barGap": 0,
     "barWidth": "20%",
     "itemStyle": {

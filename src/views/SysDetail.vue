@@ -29,6 +29,20 @@ export default {
     }
   },
   mounted () {
+    // 给图表添加渐变色
+    chartOption.series[0].areaStyle = {
+      normal: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+          offset: 0,
+          color: 'rgba(255, 0, 0, 0.8)'
+        }, {
+          offset: 0.8,
+          color: 'rgba(0, 128, 0, 0.2)'
+        }], false),
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowBlur: 10
+      }
+    }
     this.chart = echarts.init(this.$refs.chart)
     this.chart.setOption(chartOption)
     let _this = this

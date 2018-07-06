@@ -22,7 +22,7 @@
             .icon.options(@click.stop.self="showEdit($event,menuLv2)") &#xe612;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
-            router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div")
+            router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div", :key="menuLv3.group_id")
               .item-wrap.lv3
                 .text(:title="menuLv2.group_name")
                   p.name(:title="menuLv3.group_name") {{menuLv3.group_name}}
