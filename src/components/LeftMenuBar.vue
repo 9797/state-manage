@@ -176,9 +176,10 @@ export default {
 
 <style lang="less" scoped>
   .left-menu-bar {
-    position: relative;
-    transition: width 0.5s;
     width: 200px;
+    height: 100%;
+    overflow: auto;
+    position: relative;
     box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;
     // 分组
@@ -206,13 +207,15 @@ export default {
       .menu-lv3 {
         &.router-link-active, &:hover {
           .item-wrap {
-            padding-left: 55px;
+            padding-left: 60px;
             border-left: 5px solid #0CAAFF;
             background: #F5F5F5;
           }
         }
         .item-wrap {
-          padding-left: 60px;
+          transition: all .3s;
+          padding-left: 65px;
+          border-left: 0;
           .text {
             pointer-events: none;
           }
