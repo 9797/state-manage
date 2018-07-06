@@ -147,6 +147,9 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
       z-index: 1;
       height: 100%;
     }
+    .menu {
+      display: block;
+    }
     .right-panel {
       position: absolute;
       margin: 0;

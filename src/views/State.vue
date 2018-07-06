@@ -38,6 +38,7 @@ export default {
           show: true,
           formatter: '{b} \n ({c}台)'
         },
+        color: ['#2d8c2d', '#f9f905', '#fb0e0e'],
         series : [
           {
             name: '访问来源',

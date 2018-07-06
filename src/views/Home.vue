@@ -45,6 +45,7 @@ export default {
     background-color: #ebebeb;
   }
   .menu {
+    display: none;
     position: fixed;
     right: 10px;
     bottom: 10px;

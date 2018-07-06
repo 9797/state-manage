@@ -1,22 +1,10 @@
 {
   "grid": {
     "show": true,
-    "left": 50,
+    "left": 80,
     "top": 80,
-    "right": 120,
+    "right": 80,
     "bottom": 50
-  },
-  "title": {
-    "show": false,
-    "text": "2018/07/20  02:20 \n\n时长： 250ms",
-    "textStyle": {
-      "color": "#999",
-      "fontSize": 14,
-      "lineHeight": 40,
-      "fontWeight": "normal"
-    },
-    "left": 90,
-    "top": 20
   },
   "textStyle": {
     "fontSize": 14
@@ -63,7 +51,7 @@
       }
     },
     "data": ["00:20", "00:40", "01:00", "01:20", "01:40", "02:00", "02:20", "02:40", "03:00", "03:20", "03:40", "04:00", "04:20", "04:40"],
-    "name": "时间间隔(min)",
+    "name": "时间",
     "nameTextStyle": {
       "color": "#999"
     },
@@ -88,7 +76,7 @@
       },
       "margin": 15
     },
-    "name": "时长(s)",
+    "name": "耗时(s)",
     "nameTextStyle": {
       "color": "#999"
     },
