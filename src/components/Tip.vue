@@ -31,7 +31,12 @@ export default {
   methods: {
     confrim () {
       this.$emit('hideTip')
-      if (!this.inputVal || this.inputVal === this.tipData.group_name) return
+      let f = true
+      if (!this.inputVal) f = false
+      if (this.inputVal === this.tipData.group_name) f = false
+      if (this.inputVal === this.tipData.group_name) f = false
+      if (this.tipData.type === 'del') f = true
+      if (!f) return
       Order.$emit('updataMenu',  Object.assign({
         value: this.inputVal
       }, this.tipData))

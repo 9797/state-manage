@@ -10,7 +10,7 @@
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
-        .icon.options(@click.stop.self="showEdit($event,menuLv1)") &#xe612;
+        .icon.options(@click.stop.self="showEdit($event, menuLv1, 1)") &#xe612;
       // 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
@@ -19,7 +19,7 @@
               .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
-            .icon.options(@click.stop.self="showEdit($event,menuLv2)") &#xe612;
+            .icon.options(@click.stop.self="showEdit($event, menuLv2, 2)") &#xe612;
           // 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div", :key="menuLv3.group_id")
@@ -47,6 +47,7 @@ export default {
   mounted () {
     let _this = this
     Order.$on('updataMenu', (data) => {
+      console.log(data)
       if (data.type === 'add')
       _this.addMenu(data)
       if (data.type === 'edit')
@@ -156,10 +157,12 @@ export default {
       // 2 :  重命名该组
       // 3 :  删除分组
       // 4 :  编辑
+      if (l && l === 1)
       o.ops = [0, 1, 2, 3]
-      if (l && l === 3) {
-       o.ops = [0, 1, 2, 4]
-      }
+      if (l && l === 2)
+      o.ops = [1, 2, 3]
+      if (l && l === 3)
+      o.ops = [2, 4]
       this.editMenuData = o
       let editBox = this.$refs.edit.$el
       if (!editBox) return
