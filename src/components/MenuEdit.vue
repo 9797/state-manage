@@ -65,10 +65,9 @@ export default {
       this.hideEdit()
       // 传递菜单分级到edit页面
       this.$router.push({
-        // path: `/edit`,
-        name: 'edit',
-        params: {
-          id: this.editMenuData.group_id,
+        path: `/edit`,
+        query: {
+          group_id: this.editMenuData.group_id,
           lv1: this.editMenuData.lv1,
           lv2: this.editMenuData.lv2,
           lv3: this.editMenuData.lv3

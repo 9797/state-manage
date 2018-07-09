@@ -8,7 +8,7 @@
         .card(v-for="item in sysList", :class="{added : item.isAdded}")
           span {{item.name}}
           .tool.add(@click="addSys(item)") +
-    .menu-systems(v-if="groupData.id")
+    .menu-systems(v-if="groupData.group_id && addedSysList.length")
       .title-bar
         .sys-title {{groupData.lv1}} &gt; {{groupData.lv2}} &gt; {{groupData.lv3}}
       .card-box
@@ -28,15 +28,14 @@ export default {
     }
   },
   created () {
-    let queryData = this.$route.params
-    this.groupData = queryData
+    this.groupData = this.$route.query
     this.getSysList()
   },
   methods: {
     // 获取sys列表
     getSysList () {
       let _this = this
-      Fun.post(`${Config.serve}monitor/query_group_system_list`, {id: this.groupData.id}, (res) => {
+      Fun.post(`${Config.serve}monitor/query_group_system_list`, {id: this.groupData.group_id}, (res) => {
         if (res.err === 0) {
           let sysListTmp = Fun.deepClone(res.data)
           let sysListGroup = sysListTmp.group
@@ -66,7 +65,7 @@ export default {
       if (sysObj.isAdded) return
       Fun.post(`${Config.serve}monitor/insert_group_system`, {
         sys_id: sysObj.sys_id,
-        group_id: this.groupId
+        group_id: this.groupData.group_id
       }, (res) => {
         if (res.err === 0) {
           _this.getSysList()
@@ -78,7 +77,7 @@ export default {
       let _this = this
       Fun.post(`${Config.serve}monitor/delete_group_system`, {
         sys_id: sysObj.sys_id,
-        group_id: this.groupId
+        group_id: this.groupData.group_id
       }, (res) => {
         if (res.err === 0) {
           _this.getSysList()
