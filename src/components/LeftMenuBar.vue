@@ -7,6 +7,7 @@
     .add-group-btn(v-if="menuData.length === 0", @click="addFirstGroup")
       .text 新建分组
       .icon.add &#xe621;
+    router-link.left-menu-item(to="/state/all", tag="div") 全部系统
     //- 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1(@click="unfold(menuLv1)", :title="menuLv1.group_name")
@@ -31,7 +32,6 @@
                 .text(:title="menuLv2.group_name")
                   p.name(:title="menuLv3.group_name") {{menuLv3.group_name}}
                 .icon.options(@click.stop.self="showEdit($event, mergObj(menuLv3, menuLv1.group_name, menuLv2.group_name), 3)") &#xe612;
-    .all-system(@click="$router.push('/state/all')") 全部系统
 </template>
 
 <script>
@@ -309,16 +309,19 @@ export default {
       }
     }
   }
-  .all-system {
-    height: 45px;
+  .left-menu-item {
+    height: 60px;
     cursor: pointer;
-    line-height: 45px;
+    line-height: 60px;
+    padding: 0 15px;
+    font-size: 18px;
+    color: #2E2E2E;
+    font-weight: bold;
     text-align: center;
-    background-color: #009fe9;
-    color: white;
-    font-size: 1.3em;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+    border-bottom: 1px solid #ccc;
+  }
+  .left-menu-item:hover {
+    background: #F5F5F5;
+    border-left: 5px solid #009fe9;
   }
 </style>

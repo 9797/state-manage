@@ -177,6 +177,8 @@ export default {
       line-height: 30px;
       font-size: 1.2rem;
       text-align: center;
+      width: 150px;
+      overflow: hidden;
     }
     .state-item-icon {
       width: 25px;
