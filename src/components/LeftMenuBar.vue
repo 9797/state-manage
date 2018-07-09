@@ -173,7 +173,7 @@ export default {
       if (l && l === 1)
       o.ops = [0, 1, 2, 3]
       if (l && l === 2)
-      o.ops = [1, 2, 3]
+      o.ops = [2, 3, 5]
       if (l && l === 3)
       o.ops = [2, 3, 4]
       this.editMenuData = o
