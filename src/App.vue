@@ -18,9 +18,10 @@ export default {
   },
   mounted () {
     Order.$on('NOTICE', (data) => {
+      // console.log(data)
       let IDList = []
       data.forEach(element => {
-        IDList.push(element.id)
+        IDList.push(element.sys_id)
       })
       // 如果没有可请求的通知机器不向后端进行请求
       if (IDList.length === 0) return
