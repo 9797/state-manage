@@ -5,7 +5,7 @@
         .sort 故障系统优先
         CheckBox.check(:size="18")
       .state-panel
-        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail/' + item.id + '/' + item.reqmethod)")
+        .state-item(v-for="item in mock", :class="{warn: item.now === 1, error: item.now === 2}", @click="$router.push('/sysdetail/' + item.sys_id + '/' + item.reqmethod)")
           .service
           .name {{item.name}}
           img.state-item-icon(v-if="item.now === 0", src="../assets/right.png")

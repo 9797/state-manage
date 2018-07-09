@@ -4,7 +4,7 @@
     //- 编辑菜单
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
     //- 当没有分组时显示新增分组的按钮
-    .add-group-btn(v-if="menuData.length === 0", @click="addFirstGroup")
+    .add-group-btn(v-if="menuData && menuData.length === 0", @click="addFirstGroup")
       .text 新建分组
       .icon.add &#xe621;
     router-link.left-menu-item(to="/state/all", tag="div") 全部系统
@@ -174,7 +174,7 @@ export default {
       if (l && l === 1)
       o.ops = [0, 1, 2, 3]
       if (l && l === 2)
-      o.ops = [1, 2, 3]
+      o.ops = [2, 3, 5]
       if (l && l === 3)
       o.ops = [2, 3, 4]
       this.editMenuData = o
