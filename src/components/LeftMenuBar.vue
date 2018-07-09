@@ -4,7 +4,7 @@
     //- 编辑菜单
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
     //- 当没有分组时显示新增分组的按钮
-    .add-group-btn(v-if="menuData.length === 0", @click="addFirstGroup")
+    .add-group-btn(v-if="menuData && menuData.length === 0", @click="addFirstGroup")
       .text 新建分组
       .icon.add &#xe621;
     //- 一级
