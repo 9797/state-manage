@@ -31,6 +31,7 @@
                 .text(:title="menuLv2.group_name")
                   p.name(:title="menuLv3.group_name") {{menuLv3.group_name}}
                 .icon.options(@click.stop.self="showEdit($event, mergObj(menuLv3, menuLv1.group_name, menuLv2.group_name), 3)") &#xe612;
+    .all-system(@click="$router.push('/state/all')") 全部系统
 </template>
 
 <script>
@@ -307,5 +308,17 @@ export default {
         // pointer-events: none;
       }
     }
+  }
+  .all-system {
+    height: 45px;
+    cursor: pointer;
+    line-height: 45px;
+    text-align: center;
+    background-color: #009fe9;
+    color: white;
+    font-size: 1.3em;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
   }
 </style>

@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      redirect: '/state/all',
       children: [
         {
           path: '/state/:id',
