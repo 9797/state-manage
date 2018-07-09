@@ -47,7 +47,7 @@ export default {
   },
   created () {
     // 获取分组列表
-    // this.getGroup()
+    this.getGroup()
   },
   mounted () {
     let _this = this
