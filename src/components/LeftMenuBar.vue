@@ -5,8 +5,8 @@
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
     // 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
-      .item-wrap.lv1
-        .text(@click="unfold(menuLv1)", :title="menuLv1.group_name")
+      .item-wrap.lv1(@click="unfold(menuLv1)", :title="menuLv1.group_name")
+        .text
           .icon.unfold(v-if="menuLv1.isunfold") &#xe656;
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
@@ -14,8 +14,8 @@
       // 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
-          .item-wrap.lv2
-            .text(@click="unfold(menuLv2)", :title="menuLv2.group_name")
+          .item-wrap.lv2(@click="unfold(menuLv2)", :title="menuLv2.group_name")
+            .text
               .icon.unfold(v-if="menuLv2.isunfold") &#xe656;
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
