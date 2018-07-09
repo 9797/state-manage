@@ -1,9 +1,9 @@
 <template lang="pug">
   //- 左侧二级菜单栏
   .left-menu-bar
-    //编辑菜单
+    //- 编辑菜单
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
-    // 一级
+    //- 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1(@click="unfold(menuLv1)", :title="menuLv1.group_name")
         .text
@@ -11,7 +11,7 @@
           .icon.unfold(v-else) &#xe643; 
           p.name {{menuLv1.group_name}}
         .icon.options(@click.stop.self="showEdit($event, menuLv1, 1)") &#xe612;
-      // 二级
+      //- 二级
       .menu-lv2-box(v-show="menuLv1.isunfold")
         .menu-lv2(v-for="(menuLv2, key2, index2) in menuLv1.son", v-if="menuLv2")
           .item-wrap.lv2(@click="unfold(menuLv2)", :title="menuLv2.group_name")
@@ -20,7 +20,7 @@
               .icon.unfold(v-else) &#xe643;
               p.name {{menuLv2.group_name}}
             .icon.options(@click.stop.self="showEdit($event, menuLv2, 2)") &#xe612;
-          // 三级
+          //- 三级
           .menu-lv3-box(v-show="menuLv2.isunfold")
             router-link.menu-lv3(v-for="(menuLv3, key3, index3) in menuLv2.son", v-if="menuLv3", :to="'/state/' + menuLv3.group_id", tag="div", :key="menuLv3.group_id")
               .item-wrap.lv3
