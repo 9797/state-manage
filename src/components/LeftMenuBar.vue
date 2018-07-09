@@ -3,6 +3,10 @@
   .left-menu-bar
     //- 编辑菜单
     MenuEdit(ref="edit", v-show="showEditFlag", @hideEdit="showEditFlag = false", :editMenuData="editMenuData")
+    //- 当没有分组时显示新增分组的按钮
+    .add-group-btn(v-if="menuData.length === 0", @click="addFirstGroup")
+      .text 新建分组
+      .icon.add &#xe621;
     //- 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1(@click="unfold(menuLv1)", :title="menuLv1.group_name")
@@ -42,7 +46,8 @@ export default {
     }
   },
   created () {
-    this.getGroup()
+    // 获取分组列表
+    // this.getGroup()
   },
   mounted () {
     let _this = this
@@ -65,6 +70,14 @@ export default {
     MenuEdit
   },
   methods: {
+    // 新增第一个分组
+    addFirstGroup () {
+     let data = {
+        type: 'add',
+        title: '添加分组'
+      }
+      Order.$emit('showTip', data)
+    },
     // 对象合并
     mergObj () {
       return Object.assign(arguments[0], {
@@ -184,9 +197,34 @@ export default {
     overflow: auto;
     transition: all 0.5s;
     position: relative;
-    position: relative;
     box-shadow: 1px 0px 1px #cccccc;
     background: #ffffff;
+    .add-group-btn {
+      cursor: pointer;
+      width: auto;
+      height: 60px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
+      margin-right: 20px;
+      .text {
+        width: calc(~"100% - 15px");
+        font-size: 18px;
+        color: #2E2E2E;
+        line-height: 60px;
+        padding-left: 25px;
+      }
+      .icon.add {
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        background: #fff;
+        color: #59ADDA;
+        text-align: center;
+        font-size: 15px;
+      }
+    }
     // 分组
     .item-box {
       width: 100%;
@@ -240,6 +278,9 @@ export default {
       color: #9B9B9B;
       padding-left: 15px;
       padding-right: 20px;
+      &:hover .icon.options{
+        color: #59ADDA;
+      }
       .text {
         width: calc(~"100% - 15px");
         display: flex;
@@ -262,7 +303,7 @@ export default {
       .icon.options {
         width: 15px;
         height: 15px;
-        color: #59ADDA;
+        color: #666666;
         // pointer-events: none;
       }
     }

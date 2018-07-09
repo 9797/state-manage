@@ -2,17 +2,22 @@
   .edit-wrap
     .mark(@click="hideEdit")
     .edit-box#edit(v-if="editMenuData.ops")
-      .option(@click="addGroup", v-if="editMenuData.ops.includes(0)") 新建分组
-      .option(@click="addSubGroup", v-if="editMenuData.ops.includes(1)") 添加下级分组
-      .option(@click="renameGroup", v-if="editMenuData.ops.includes(2)") 重命名该组
-      .option(@click="deleteGroup", v-if="editMenuData.ops.includes(3)") 删除分组
-      .option(@click="editGroup", v-if="editMenuData.ops.includes(4)") 编辑
+      .option(@click="addGroup", v-if="editMenuData.ops.includes(0)") {{opsList[0]}}
+      .option(@click="addSubGroup", v-if="editMenuData.ops.includes(1)") {{opsList[1]}}
+      .option(@click="renameGroup", v-if="editMenuData.ops.includes(2)") {{opsList[2]}}
+      .option(@click="deleteGroup", v-if="editMenuData.ops.includes(3)") {{opsList[3]}}
+      .option(@click="editGroup", v-if="editMenuData.ops.includes(4)") {{opsList[4]}}
     .tip-box
 </template>
 <script>
 import { Fun, Config, Order } from '@/Order.js'
 export default {
   props: ['editMenuData'],
+  data () {
+    return {
+      opsList:  ['新建一级分组', '添加二级分组', '重命名该组', '删除分组', '编辑', '添加三级分组']
+    }
+  },
   methods: {
     // 隐藏编辑组件
     hideEdit () {
