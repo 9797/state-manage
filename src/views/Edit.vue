@@ -147,6 +147,11 @@ export default {
         background: #F4F4F4;
         span {
           color: #9B9B9B;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 120px;
+          display: inline-block;
         }
         .tool {
           background: rgba(235,235,235,0.89);
