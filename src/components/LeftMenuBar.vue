@@ -162,7 +162,7 @@ export default {
       if (l && l === 2)
       o.ops = [1, 2, 3]
       if (l && l === 3)
-      o.ops = [2, 4]
+      o.ops = [2, 3, 4]
       this.editMenuData = o
       let editBox = this.$refs.edit.$el
       if (!editBox) return
