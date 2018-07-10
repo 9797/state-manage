@@ -10,8 +10,8 @@
   "dependencies": {
     "check-puge": "^1.0.9",
     "echarts": "^4.1.0",
-    "echarts-middleware": "2.0.1",
-    "notice-puge": "^1.0.1",
+    "echarts-middleware": "2.0.2",
+    "notice-puge": "1.0.2",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "vue": "^2.5.16",
@@ -21,7 +21,7 @@
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
-    "less": "^3.0.4",
+    "less": "3.5.3",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16"
   },

@@ -2509,9 +2509,9 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-echarts-middleware@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/echarts-middleware/-/echarts-middleware-2.0.1.tgz#10cd6eb4d47eb9781cad7ade61c88c51ae1e47e2"
+echarts-middleware@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/echarts-middleware/-/echarts-middleware-2.0.2.tgz#5cd91adab086ffcf2b5b5628b6caf7ff505d515c"
 
 echarts@^4.1.0:
   version "4.1.0"
@@ -4113,9 +4113,9 @@ less-loader@^4.1.0:
     loader-utils "^1.1.0"
     pify "^3.0.0"
 
-less@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/less/-/less-3.0.4.tgz#d27dcedbac96031c9e7b76f1da1e4b7d83760814"
+less@3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/less/-/less-3.5.3.tgz#108f656b5ee09a281b757a603a80aa091acf6384"
   optionalDependencies:
     errno "^0.1.1"
     graceful-fs "^4.1.2"
@@ -4679,9 +4679,9 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-notice-puge@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/notice-puge/-/notice-puge-1.0.1.tgz#ded5c5305bc4d36bd4255b1bd61125dd4f1f8b9c"
+notice-puge@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/notice-puge/-/notice-puge-1.0.2.tgz#bbcd2205013234520e567151498dc3b7c419be63"
 
 npm-bundled@^1.0.1:
   version "1.0.3"
