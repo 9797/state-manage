@@ -60,7 +60,8 @@ export default {
         let xAxis = []
         let value = result.data.total_time
         result.data.now_time.forEach(element => {
-          let time = this.timeAgo(parseInt(element) * 1000)
+          // console.log(new Date(parseInt(element) * 1000))
+          let time = new Date(parseInt(element) * 1000).toLocaleString()
           xAxis.push(time)
         })
         chartOption.xAxis.data = xAxis

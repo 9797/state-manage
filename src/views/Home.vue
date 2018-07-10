@@ -24,12 +24,6 @@ export default {
       tipData: {}
     }
   },
-  created () {
-    console.log('开始请求!')
-    Fun.get(`${Config.serve}Monitor/get_system_list`, (res) => {
-      console.log(res)
-    })
-  },
   mounted () {
     Order.$on('showTip', (data) => {
       this.showTip = true
