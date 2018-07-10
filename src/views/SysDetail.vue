@@ -53,20 +53,15 @@ export default {
     })
   },
   created () {
-    // this.chartOption.tooltip.triggerOn = {
-    //   'mousemove|click': (params) => {
-    //     console.log(params)
-    //   }
-    // }
     const params = this.$route.params
     Fun.post(`${Config.serve}monitor/bargraph`, {id: params.id, reqmethod: params.reqmethod}, (result) => {
       if (result.err === 0) {
         let chartCopy = chartOption
         let xAxis = []
-        let value = []
-        result.data.forEach(element => {
-          xAxis.push(new Date(parseInt(element.now_time + '000')).toLocaleString())
-          value.push(element.total_time)
+        let value = result.data.total_time
+        result.data.now_time.forEach(element => {
+          let time = new Date(parseInt(element))
+          xAxis.push(time.toLocaleString())
         })
         chartOption.xAxis.data = xAxis
         chartOption.series[0].data = value
