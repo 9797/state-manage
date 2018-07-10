@@ -89,9 +89,9 @@ export default {
           // this.mock = res.data
           console.log(res.data.total)
           if (res.data.total !== 0) {
-            chartDataCopy.series[0].data[0].value = res.data.normal
-            chartDataCopy.series[0].data[1].value = res.data.fault
-            chartDataCopy.series[0].data[2].value = res.data.error
+            chartDataCopy.series[0].data[0].value = res.data.fault0
+            chartDataCopy.series[0].data[1].value = res.data.fault1
+            chartDataCopy.series[0].data[2].value = res.data.fault2
             // console.log(this.chartData)
             this.chartData = chartDataCopy
           } else {

@@ -320,7 +320,7 @@ export default {
     text-align: center;
     border-bottom: 1px solid #ccc;
   }
-  .left-menu-item:hover {
+  .left-menu-item:hover, .router-link-exact-active {
     background: #F5F5F5;
     border-left: 5px solid #009fe9;
   }
