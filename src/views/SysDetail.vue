@@ -53,11 +53,6 @@ export default {
     })
   },
   created () {
-    // this.chartOption.tooltip.triggerOn = {
-    //   'mousemove|click': (params) => {
-    //     console.log(params)
-    //   }
-    // }
     const params = this.$route.params
     Fun.post(`${Config.serve}monitor/bargraph`, {id: params.id, reqmethod: params.reqmethod}, (result) => {
       if (result.err === 0) {
