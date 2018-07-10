@@ -7,6 +7,7 @@
     .add-group-btn(v-if="menuData && menuData.length === 0", @click="addFirstGroup")
       .text 新建分组
       .icon.add &#xe621;
+    router-link.left-menu-item(to="/state/all", tag="div") 全部系统
     //- 一级
     .item-box(v-for="(menuLv1, key1, index1) in menuData", v-if="menuLv1")
       .item-wrap.lv1(@click="unfold(menuLv1)", :title="menuLv1.group_name")
@@ -307,5 +308,20 @@ export default {
         // pointer-events: none;
       }
     }
+  }
+  .left-menu-item {
+    height: 60px;
+    cursor: pointer;
+    line-height: 60px;
+    padding: 0 15px;
+    font-size: 18px;
+    color: #2E2E2E;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+  .left-menu-item:hover {
+    background: #F5F5F5;
+    border-left: 5px solid #009fe9;
   }
 </style>

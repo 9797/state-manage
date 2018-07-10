@@ -101,6 +101,7 @@ const Fun = {
 }
 
 const Config = {
+  // serve: 'http://10.225.1.167/www/public/index.php?s=index/',
   serve: 'http://192.168.1.120/kan/public/index.php?s=index/'
 }
 

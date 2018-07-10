@@ -3,6 +3,7 @@
     Tip(v-if="showTip", :tipData="tipData", @hideTip="showTip = false")
     LeftMenuBar.left(:class="{show: showLrftBar}")
     router-view
+    // 适配手机端
     .menu.icon(@click="showLrftBar = !showLrftBar") &#xe656;
 </template>
 
@@ -23,11 +24,16 @@ export default {
       tipData: {}
     }
   },
+  created () {
+    console.log('开始请求!')
+    Fun.get(`${Config.serve}Monitor/get_system_list`, (res) => {
+      console.log(res)
+    })
+  },
   mounted () {
-    let _this = this
     Order.$on('showTip', (data) => {
-      _this.showTip = true
-      _this.tipData = data
+      this.showTip = true
+      this.tipData = data
     })
   },
   beforeDestroy () {
